@@ -17,43 +17,24 @@ namespace SpaceDestroyer.Screens
 
         public HighscoreScreen() : base("High Score List")
         {
-            
             HighScore = HighScoreController.ReadAllHighScores();
-            MenuEntries.Add(new MenuEntry("Score: "));
             foreach (var highScore in HighScore)
             {
-                MenuEntries.Add(new MenuEntry("Score: " + highScore.Score + ", Level: " + highScore.Level));
+                var entry = new MenuEntry("Score: " + highScore.Score + ", Level: " + highScore.Level);
+                entry.Selected += OnCancel;
+                entry.Selected += HighScoreMenuSelected;
+                MenuEntries.Add(entry);
             }
         }
 
-        
-
-     
-        public override void HandleInput(InputState input)
+        private void HighScoreMenuSelected(object sender, PlayerIndexEventArgs e)
         {
-            if (input == null)
-                throw new ArgumentNullException("input");
-
-            if (ControllingPlayer.HasValue)
-            {
-                // In single player games, handle input for the controlling player.
-                HandlePlayerInput(input, ControllingPlayer.Value);
-            }
+            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new BackgroundScreen(), new MainMenuScreen());
         }
 
-        bool HandlePlayerInput(InputState input, PlayerIndex playerIndex)
+        protected override void OnCancel(PlayerIndex playerIndex)
         {
-            // Look up inputs for the specified player profile.
-            KeyboardState keyboardState = input.CurrentKeyboardStates[(int)playerIndex];
-            GamePadState gamePadState = input.CurrentGamePadStates[(int)playerIndex];
-            if (input.IsPauseGame(playerIndex))
-            {
-                ExitScreen();
-                ScreenManager.AddScreen(new MainMenuScreen(), playerIndex);
-                return false;
-            }
-            return true;
+            LoadingScreen.Load(ScreenManager, true, playerIndex, new BackgroundScreen(), new MainMenuScreen());
         }
-
     }
 }

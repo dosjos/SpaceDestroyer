@@ -21,7 +21,7 @@ namespace SpaceDestroyer.Screens
             MenuEntry singlePlayerMenuEntry = new MenuEntry("New Game");
             MenuEntry highScoreMenuEntry = new MenuEntry("High Score");
             // MenuEntry liveMenuEntry = new MenuEntry(Resources.PlayerMatch);
-            
+            MenuEntry settingsMenuEntry = new MenuEntry("Settings");
             MenuEntry exitMenuEntry = new MenuEntry("Quit");
 
             // Hook up menu event handlers.
@@ -29,10 +29,18 @@ namespace SpaceDestroyer.Screens
             highScoreMenuEntry.Selected += HighScoreMenuSelected;
             exitMenuEntry.Selected += OnCancel;
 
+            settingsMenuEntry.Selected += SettingsSelected;
+
             // Add entries to the menu.
             MenuEntries.Add(singlePlayerMenuEntry);
             MenuEntries.Add(highScoreMenuEntry);
+            MenuEntries.Add(settingsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
+        }
+
+        private void SettingsSelected(object sender, PlayerIndexEventArgs e)
+        {
+            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new BackgroundScreen(), new SettingsScreen("Settings"));
         }
 
         private void HighScoreMenuSelected(object sender, PlayerIndexEventArgs e)

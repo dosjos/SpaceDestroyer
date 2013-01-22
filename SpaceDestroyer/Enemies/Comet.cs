@@ -39,6 +39,15 @@ namespace SpaceDestroyer.Enemies
             {
                 rotate += 0.03;
             }
+
+            if (Y < Game1.TopLimit)
+            {
+                Y = Game1.TopLimit;
+            }
+            if (Y > Game1.BLimit - 40)
+            {
+                Y = Game1.BLimit - 40;
+            }
         }
     }
 }

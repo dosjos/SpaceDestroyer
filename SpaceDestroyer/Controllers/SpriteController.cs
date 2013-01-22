@@ -27,6 +27,9 @@ namespace SpaceDestroyer.Controllers
         private GameServiceContainer gameServiceContainer;
 
         public GameController gameController { get; set; }
+
+
+
         #endregion
 
         #region Constructor
@@ -48,6 +51,7 @@ namespace SpaceDestroyer.Controllers
             LKSFont = content.Load<SpriteFont>("Fonts/LevelKillScore");
             LargeNumber = content.Load<SpriteFont>("Fonts/LargeNumbers");
             MediumNumber = content.Load<SpriteFont>("Fonts/MediumNumbers");
+            SmalNumbers = content.Load<SpriteFont>("Fonts/SmalNumbers");
             FloatingBig = content.Load<SpriteFont>("Fonts/FloatingBig");
         }
 
@@ -77,6 +81,9 @@ namespace SpaceDestroyer.Controllers
             CargoCrateT = content.Load<Texture2D>("Enemies/StashCrate");
             EnemySentry = content.Load<Texture2D>("Enemies/EnemySentry");
             EnemyComet = content.Load<Texture2D>("Enemies/comet");
+            EnemyStriker = content.Load<Texture2D>("Enemies/EnemyStriker");
+            EnemyBomber = content.Load<Texture2D>("Enemies/Bomber");
+
             SmallBossT = content.Load<Texture2D>("Enemies/boss");
             Exp1 = content.Load<Texture2D>("Shapes/ani2");
             Exp2 = content.Load<Texture2D>("Shapes/ani3");
@@ -97,16 +104,29 @@ namespace SpaceDestroyer.Controllers
         public Texture2D Boost { get; set; }
         public Texture2D EnemySentry { get; set; }
         public Texture2D EnemyComet { get; set; }
+        public Texture2D EnemyStriker { get; set; }
+        public Texture2D EnemyBomber { get; set; }
         public Texture2D CrateAmmo { get; set; }
         public Texture2D Crate { get; set; }
         public Texture2D CrateSpecial { get; set; }
         public Texture2D CrateHealth { get; set; }
         public Texture2D CargoCrateT { get; set; }
 
+        public Texture2D RocketTexture { get; set; }
+
+        public Texture2D Exp1 { get; set; }
+
+        public Texture2D Exp2 { get; set; }
+
+        public Texture2D Exp3 { get; set; }
+
+        public Texture2D Exp4 { get; set; }
+
+        public Texture2D Exp5 { get; set; }
         public SpriteFont LKSFont { get; set; }
         public SpriteFont LargeNumber { get; set; }
         public SpriteFont FloatingBig { get; set; }
-
+        public SpriteFont SmalNumbers { get; set; }
         public Texture2D SmallBossT { get; set; }
 
         public Texture2D ShortFlame { get; set; }
@@ -124,7 +144,7 @@ namespace SpaceDestroyer.Controllers
 
         private void DrawStars()
         {
-            foreach (var allStar in GameController.starManager.GetAllStars())
+            foreach (var allStar in GameController.StarManager.GetAllStars())
             {
                 spriteBatch.Draw(StarTexture, new Rectangle(allStar.X, allStar.Y, allStar.Radius, allStar.Radius), Color.White);
             }
@@ -152,6 +172,12 @@ namespace SpaceDestroyer.Controllers
                                                new Vector2(floatingText.X + 40, floatingText.Y + 20), Color.Red);
                     }
                 }
+
+                if (floatingText is DamageText)
+                {
+                    spriteBatch.DrawString(SmalNumbers, floatingText.Text,
+                                          new Vector2(floatingText.X, floatingText.Y), Color.Red);
+                }
             }
         }
         #endregion
@@ -163,39 +189,49 @@ namespace SpaceDestroyer.Controllers
             for (int i = 0; i < gameController.PowerUps.Count; i++)
             {
                 p = gameController.PowerUps[i];
-                Texture2D tex;
-                if (p.Payload == 0)
+
+                if (p.Boss)
                 {
-                    tex = CrateHealth;
-                }
-                else if (p.Payload == 1 || p.Payload == 2)
-                {
-                    tex = CrateSpecial;
+                    var v = new Vector2(p.X, p.Y);
+                    spriteBatch.Draw(CrateSpecial, v, null, Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
                 }
                 else
                 {
-                    tex = CrateAmmo;
-                }
+                    Texture2D tex;
+                    if (p.Payload == 0)
+                    {
+                        tex = CrateHealth;
+                    }
+                    else if (p.Payload == 1 || p.Payload == 2)
+                    {
+                        tex = CrateSpecial;
+                    }
+                    else
+                    {
+                        tex = CrateAmmo;
+                    }
 
-                var v = new Vector2(p.X, p.Y);
-                spriteBatch.Draw(tex, v, null, Color.White, 0f, Vector2.Zero, 0.7f, SpriteEffects.None, 0f);
+                    var v = new Vector2(p.X, p.Y);
+                    spriteBatch.Draw(tex, v, null, Color.White, 0f, Vector2.Zero, 0.7f, SpriteEffects.None, 0f);
+                }
             }
         }
         #endregion
 
+        #region Explosion
         public void DrawExplosions()
         {
-            for (int i = 0; i < gameController.explosions.Count; i++)
+            for (int i = 0; i < gameController.Explosions.Count; i++)
             {
                
-                if (gameController.explosions[i].IsPaused)
+                if (gameController.Explosions[i].IsPaused)
                 {
-                    gameController.explosions.RemoveAt(i);
+                    gameController.Explosions.RemoveAt(i);
                     i--;
                 }
                 else
                 {
-                    gameController.explosions[i].DrawFrame(spriteBatch);
+                    gameController.Explosions[i].DrawFrame(spriteBatch);
                 }
             }
         }
@@ -211,6 +247,18 @@ namespace SpaceDestroyer.Controllers
             return t;
         }
 
+        internal AnimatedExplosion AddExplosion(AnimatedExplosion animatedTexture, int s = 10)
+        {
+            Texture2D t = null;
+            t = SelectExplosionTexture(t);
+            animatedTexture.Load(t, s);
+            var frames = new int[4] { 4, 4, 4, 4 };
+            animatedTexture.defineFrames(4, frames);
+            animatedTexture.setRow(1);
+            return animatedTexture;
+        }
+#endregion
+
         #region statsAndFrames
         private void DrawGameStats()
         {
@@ -223,12 +271,12 @@ namespace SpaceDestroyer.Controllers
                                    new Vector2((Game1.SWidth / 2) + (spacing / 3) + 30,
                                                Game1.BLimit + 50), Color.White);
 
-            int numLength = ("" + gameController.kills).Length * -10;
+            int numLength = ("" + gameController.Kills).Length * -10;
 
             spriteBatch.DrawString(LKSFont, "Kills",
                                    new Vector2((Game1.SWidth / 2) + ((spacing) * 2) - (spacing / 2) - 20,
                                                Game1.BLimit + 20), Color.White);
-            spriteBatch.DrawString(LargeNumber, "" + gameController.kills,
+            spriteBatch.DrawString(LargeNumber, "" + gameController.Kills,
                                    new Vector2((Game1.SWidth / 2) + ((spacing) * 2) - (spacing / 2) + numLength + 10,
                                                Game1.BLimit + 50), Color.White);
 
@@ -389,11 +437,33 @@ namespace SpaceDestroyer.Controllers
                 }
                 else if (playerWeapon is Rocket)
                 {
-                    spriteBatch.Draw(RocketTexture,
-                                 new Rectangle(playerWeapon.X, playerWeapon.Y, playerWeapon.RadiusX,
-                                               playerWeapon.RadiusY), Color.White);
+                    //spriteBatch.Draw(dummyTexture,
+                    //             new Rectangle(playerWeapon.X, playerWeapon.Y, playerWeapon.RadiusX,
+                    //                           playerWeapon.RadiusY), Color.Green);
+                    Vector2 v = new Vector2();
+                    //if (((Rocket) playerWeapon).Angle > Math.PI/2)
+                    //{
+                    //    v = new Vector2(0, 0);
+                    //}
+                    //else
+                    //{
+                        v = new Vector2(-5,15);
+                   // }
 
-                    // spriteBatch.Draw(RocketTexture, new Vector2(playerWeapon.X + (playerWeapon.RadiusX / 2), playerWeapon.Y + (playerWeapon.RadiusY / 2)), null, Color.White,  (int)((Rocket)playerWeapon).Angle, new Vector2(playerWeapon.RadiusX / 2.0f, playerWeapon.RadiusY / 2.0f), 0.5f, SpriteEffects.None, 0);
+                     spriteBatch.Draw(
+                         RocketTexture, 
+                         ((Rocket)playerWeapon).Position,
+                         null, 
+                         Color.White,  
+                         ((Rocket)playerWeapon).Angle,
+                          v, 
+
+                         //new Vector2(
+                         //    playerWeapon.RadiusX / 2, 
+                         //    playerWeapon.RadiusY / 2), 
+                         0.5f, 
+                         SpriteEffects.None, 
+                         1.0f);
 
                 }
 
@@ -548,30 +618,68 @@ namespace SpaceDestroyer.Controllers
                 spriteBatch.Draw(CargoCrateT, new Rectangle(enemy.X, enemy.Y, enemy.Width, enemy.Height),
                                  Color.White);
             }
+
+            if (enemy.Type == 4)
+            {
+               
+
+                Vector2 realPos = new Vector2(((Striker)enemy).pos.X + enemy.Width / 2, ((Striker)enemy).pos.Y + enemy.Height / 2);
+                spriteBatch.Draw(
+                       EnemyStriker,
+                       realPos,
+                       null,
+                       Color.White,
+                       ((Striker)enemy).Angle,
+                      
+                      new Vector2(
+                           enemy.Width / 2,
+                           enemy.Height / 2),
+                       1.0f,
+                       SpriteEffects.None,
+                       1.0f);
+            }
+            if (enemy.Type == 5)
+            {
+                spriteBatch.Draw(EnemyBomber, new Rectangle(enemy.X, enemy.Y, enemy.Width, enemy.Height),
+                                 Color.White);
+            }
+
         }
+
+
+        public void DrawEnemyBullets()
+        {
+            foreach (var enemyWeaponse in gameController.EnemyBullets)
+            {
+
+                if (enemyWeaponse is DirectionalBullet)
+                {
+                    
+                    Vector2 realPos = new Vector2(enemyWeaponse.X + enemyWeaponse.RadiusX/2,
+                                                  enemyWeaponse.Y + enemyWeaponse.RadiusY/2);
+                    spriteBatch.Draw(
+                        Bullet,
+                        realPos,
+                        null,
+                        Color.OrangeRed,
+                        ((DirectionalBullet) enemyWeaponse).Angle,
+                        new Vector2(
+                            enemyWeaponse.RadiusX/2,
+                            enemyWeaponse.RadiusY/2),
+                        0.3f,
+                        SpriteEffects.None,
+                        1.0f);
+                }
+                if (enemyWeaponse is EBullet)
+                {
+                    spriteBatch.Draw(Bullet, new Rectangle(enemyWeaponse.X, enemyWeaponse.Y, enemyWeaponse.RadiusX, enemyWeaponse.RadiusY),
+                                 Color.Orange);
+                }
+            }
+        }
+
         #endregion
 
-        public Texture2D RocketTexture { get; set; }
-
-        public Texture2D Exp1 { get; set; }
-
-        public Texture2D Exp2 { get; set; }
-
-        public Texture2D Exp3 { get; set; }
-
-        public Texture2D Exp4 { get; set; }
-
-        public Texture2D Exp5 { get; set; }
-
-        internal AnimatedExplosion AddExplosion(AnimatedExplosion animatedTexture)
-        {
-            Texture2D t = null;
-            t = SelectExplosionTexture(t);
-            animatedTexture.Load(t, 10);
-            var frames = new int[4] { 4, 4, 4, 4 };
-            animatedTexture.defineFrames(4, frames);
-            animatedTexture.setRow(1);
-            return animatedTexture;
-        }
+      
     }
 }

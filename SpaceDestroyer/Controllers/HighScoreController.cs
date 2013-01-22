@@ -16,8 +16,8 @@ namespace SpaceDestroyer.Controllers
             FileStream stream = File.Open(Filename, FileMode.OpenOrCreate, FileAccess.Read);
             try
             {
-                var serializer = new XmlSerializer(typeof (HighScore));
-                list.Add((HighScore) serializer.Deserialize(stream));
+                var serializer = new XmlSerializer(typeof (List<HighScore>));
+                list = (List<HighScore>) serializer.Deserialize(stream);
             }
             catch (Exception e)
             {
@@ -34,11 +34,8 @@ namespace SpaceDestroyer.Controllers
             FileStream stream = File.Open(Filename, FileMode.OpenOrCreate);
             try
             {
-                foreach (HighScore readAllHighScore in GameController.HighScores)
-                {
-                    var serializer = new XmlSerializer(typeof (HighScore));
-                    serializer.Serialize(stream, readAllHighScore);
-                }
+                var serializer = new XmlSerializer(typeof(List<HighScore>));
+                serializer.Serialize(stream, GameController.HighScores);
             }
             finally
             {

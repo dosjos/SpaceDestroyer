@@ -36,6 +36,9 @@ Content\Shapes\blank.xnb
 Content\Background\gradient.xnb
 Content\Weapons\erocket.xnb
 Content\Weapons\rocket.xnb
+Content\Fonts\SmalNumbers.xnb
+Content\Enemies\Bomber.xnb
+Content\Enemies\EnemyStriker.xnb
 Content\Sound\spreader.wma
 Content\Music\bg.wma
 Content\leveldata.xml

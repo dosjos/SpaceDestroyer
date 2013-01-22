@@ -2,7 +2,7 @@
 
 namespace SpaceDestroyer.GameData
 {
-    [Serializable]
+    
     public class HighScore : IComparable
     {
         public string Name { get; set; }
@@ -17,11 +17,11 @@ namespace SpaceDestroyer.GameData
             {
                 if (Score > ((HighScore) obj).Score)
                 {
-                    return 1;
+                    return -1;
                 }
                 else
                 {
-                    return -1;
+                    return 1;
                 }
             }
             else

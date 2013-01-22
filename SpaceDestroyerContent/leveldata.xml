@@ -3,23 +3,41 @@
   <Asset Type="SpaceDestroyer.GameData"></Asset>
 <!--Type 1 == Astroide
     Type 2 == SentryShip
-    Type 3 == Cargo Container-->
+    Type 3 == Cargo Container
+    Type 4 == Striker
+    Type 5 == Bomber
+    
+    Boss
+    Type 1 == SmallBoss
+    
+    -->
   <Level>
     <LevelNumber>1</LevelNumber>
     <InfoText>
       <Info>Get through the meteorid field to get to the enemy supply zone.</Info>
       <Info2>Save your ammunition, but KILL stuff to advance</Info2>
     </InfoText>
+
     <Enemies>
       <EnemyData>
+        <Type>5</Type>
+        <Droprate>0</Droprate>
+        <Boss>false</Boss>
+        <Healt>5000</Healt>
+        <Score>3</Score>
+        <Spawnrate>1500</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+
+      <!--<EnemyData>
         <Type>1</Type>
         <Droprate>0</Droprate>
         <Boss>false</Boss>
         <Healt>5</Healt>
         <Score>2</Score>
-        <Spawnrate>3000</Spawnrate>
+        <Spawnrate>2000</Spawnrate>
         <CrashDamage>5</CrashDamage>
-      </EnemyData>
+      </EnemyData>-->
     </Enemies>
   </Level>
   <Level>
@@ -31,10 +49,11 @@
         <Boss>false</Boss>
         <Healt>5</Healt>
         <Score>3</Score>
-        <Spawnrate>2000</Spawnrate>
+        <Spawnrate>1500</Spawnrate>
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
+    
   </Level>
   <Level>
     <LevelNumber>3</LevelNumber>
@@ -49,6 +68,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
+    
   </Level>
   <Level>
     <LevelNumber>4</LevelNumber>
@@ -77,6 +97,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
+    
   </Level>
 
 
@@ -97,6 +118,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
+   
   </Level>
 
   <Level>
@@ -112,6 +134,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
+    
   </Level>
 
 

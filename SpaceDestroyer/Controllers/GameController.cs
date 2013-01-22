@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using SpaceDestroyer.Backgrounds;
 using SpaceDestroyer.Enemies;
 using SpaceDestroyer.GameData;
@@ -54,44 +51,44 @@ namespace SpaceDestroyer.Controllers
 
         #region Vars
         public static PlayerOne Player;
-        
-        public static List<HighScore>     HighScores       = new List<HighScore>();
+
+        public static List<HighScore>     HighScores = new List<HighScore>();
         private BulletController          bulletController = new BulletController();
-        public List<EnemyWeapons>         enemyBullets     = new List<EnemyWeapons>();
-        public List<AnimatedExplosion>    explosions       = new List<AnimatedExplosion>();
+        public List<EnemyWeapons>         EnemyBullets     = new List<EnemyWeapons>();
+        public List<AnimatedExplosion>    Explosions       = new List<AnimatedExplosion>();
         public List<Power>                PowerUps         = new List<Power>();
         public List<FloatingText>         FloatingTexts    = new List<FloatingText>();
         public List<Enemy>                EnemyList        = new List<Enemy>();
         
-        private BackgroundColor backGroundColor = new BackgroundColor();
-        public static StarManager starManager;
-        private LevelController levelController;
+        private readonly BackgroundColor _backGroundColor = new BackgroundColor();
+        public static StarManager StarManager;
+        private LevelController _levelController;
 
         public int[] AmmoCounter = {50, 10, 2, 2, 0, 50};
         public int ChoosenWeapon = 1;
         public int DamageMulti = 1;
         public static int NumberOfWeapons = 6;
 
-        private DateTime LastShot;
+        private DateTime _lastShot;
         public static Ammos Ammo { get; set; }
 
         public static ShootSpeeds ShootSpeed { get; set; }
 
         public int Level
         {
-            get { return levelController.Level; }
-            set { levelController.Level = value; }
+            get { return _levelController.Level; }
+            set { _levelController.Level = value; }
         }
 
-        public int kills { get; set; }
+        public int Kills { get; set; }
         public int Score { get; set; }
 
         public Boolean BossMode { get; set; }
 
         public static State CurrentState { get; set; }
 
-        public AnimatedExplosion animatedTexture { get; set; }
-        private Boolean progresser;
+        public AnimatedExplosion AnimatedTexture { get; set; }
+        private Boolean _progresser;
 
         #endregion
 
@@ -103,22 +100,21 @@ namespace SpaceDestroyer.Controllers
 
         internal void Reset()
         {
-            levelController = new LevelController(enemyBullets, EnemyList);
+            _levelController = new LevelController(EnemyBullets, EnemyList);
             ShootSpeed = ShootSpeeds.Bullet;
-            starManager = new StarManager();
+            StarManager = new StarManager();
             Player = new PlayerOne();
             EnemyList = new List<Enemy>();
-            enemyBullets = new List<EnemyWeapons>();
-            explosions = new List<AnimatedExplosion>();
+            EnemyBullets = new List<EnemyWeapons>();
+            Explosions = new List<AnimatedExplosion>();
             PowerUps = new List<Power>();
             FloatingTexts = new List<FloatingText>();
 
-            levelController = new LevelController(enemyBullets, EnemyList);
-            levelController.Level = 1;
+            _levelController = new LevelController(EnemyBullets, EnemyList) {Level = 1};
             Level = 1;
             Score = 0;
-            kills = 0;
-            AmmoCounter = new[] {50, 10, 100, 2, 0, 50};
+            Kills = 0;
+            AmmoCounter = new[] {50, 1000, 500, 2, 0, 5000};
             ChoosenWeapon = 1;
             DamageMulti = 1;
             ShootSpeed = ShootSpeeds.Bullet;
@@ -129,23 +125,21 @@ namespace SpaceDestroyer.Controllers
         #region Levels
         internal void CheckAndUpdateLevel()
         {
-            if (levelController.HasText())
+            if (_levelController.HasText())
             {
-                if (!levelController.TextIsSeen())
+                if (!_levelController.TextIsSeen())
                 {
-                    FloatingTexts.Add(levelController.GetText());
+                    FloatingTexts.Add(_levelController.GetText());
                 }
             }
             if (!BossMode)
             {
-                if (kills != 0 && kills%10 == 0 && progresser)
+                if (Kills != 0 && Kills%10 == 0 && _progresser)
                 {
                     Level++;
-                    progresser = false;
+                    _progresser = false;
                 }
             }
-
-            //TODO
         }
         #endregion
 
@@ -156,7 +150,7 @@ namespace SpaceDestroyer.Controllers
             {
                 if (!BossMode)
                 {
-                    Enemy e = levelController.AddEnemy();
+                    Enemy e = _levelController.AddEnemy();
                     if (e != null)
                     {
                         if (e.Boss)
@@ -195,33 +189,69 @@ namespace SpaceDestroyer.Controllers
 
         #endregion
 
+
+        #region enemyFire
         internal void CalculateEnemyFire()
         {
-            //TODO
+            foreach (var enemyWeaponse in EnemyBullets)
+            {
+                enemyWeaponse.Calculate();
+            }
         }
-
-       
 
         private void AddExplosion(Enemy e)
         {
             SoundController.PlayExplosion();
-            var animatedTexture = new AnimatedExplosion(Vector2.Zero, 0.0f, 1.0f, 0.5f, e.X, e.Y, e.Width, e.Height, e.Speed);
-            var res = spriteController.AddExplosion(animatedTexture);
-            explosions.Add(res);
+            var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 1.0f, 0.5f, e.X, e.Y, e.Width, e.Height, e.Speed);
+            var res = spriteController.AddExplosion(animatedExplosion);
+            Explosions.Add(res);
         }
 
         internal void CalculateEnemyFireHit()
         {
-            //TODO
+            for (int i = 0; i < EnemyBullets.Count; i++)
+            {
+                EnemyWeapons e = EnemyBullets[i];
+
+                if (e.X + e.RadiusX > Player.X && e.X < Player.X + Player.Width && e.Y + e.RadiusY > Player.Y &&
+                    e.Y < Player.Y + Player.Height)
+                {
+                    var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 0.5f, 1.0f, e.X, e.Y, 15, 15, 5);
+                    var res = spriteController.AddExplosion(animatedExplosion);
+                    Explosions.Add(res);
+                    int dmg = e.Power;
+                     FloatingTexts.Add(new DamageText(Player.X + Player.Width / 2, Player.Y, dmg));
+                    if (Player.Shield > 0 && Player.Shield > dmg && Player.ShieldOn)
+                    {
+                        Player.Shield -= dmg;
+                        dmg = 0;
+                    }
+                    else if (Player.Shield > 0 && Player.ShieldOn)
+                    {
+                        while (Player.Shield > 0)
+                        {
+                            Player.Shield--;
+                            dmg--;
+                        }
+                    }
+                    if (dmg > 0)
+                    {
+                        Player.Healt -= dmg;
+                    }
+
+                    EnemyBullets.RemoveAt(i);
+                    i--;
+                }
+            }
         }
+        #endregion
 
         #region collissions
         internal void CalculateColisions()
         {
-            Enemy e;
             for (int i = 0; i < EnemyList.Count; i++)
             {
-                e = EnemyList[i];
+                Enemy e = EnemyList[i];
                 if (Player.X + Player.Width > e.X && Player.X < e.X + e.Width && Player.Y + Player.Height > e.Y &&
                     Player.Y < e.Y + e.Height)
                 {
@@ -300,25 +330,25 @@ namespace SpaceDestroyer.Controllers
         internal void AddBullet()
         {
             DateTime now = DateTime.Now;
-            if ((now - LastShot).TotalMilliseconds > (int)ShootSpeed)
+            if ((now - _lastShot).TotalMilliseconds > (int)ShootSpeed)
             {
                 if (AmmoCounter[ChoosenWeapon - 1] > 0)
                 {
                     if (Ammo == Ammos.Bullet)
                     {
                         SoundController.PlayBulletSound();
-                        if (DamageMulti > 6)
+                        if (DamageMulti > 3)
                         {
-                            bulletController.AddShoot(new Bullet(Player.X + Player.Width,
+                            bulletController.AddShoot(new Bullet(Player.X + Player.Width -10,
                                                                  Player.Y + (Player.Height / 2) - 20, 5 * DamageMulti));
-                            bulletController.AddShoot(new Bullet(Player.X + Player.Width,
+                            bulletController.AddShoot(new Bullet(Player.X + Player.Width - 5,
                                                                  Player.Y + (Player.Height / 2) - 10, 5 * DamageMulti));
-                            bulletController.AddShoot(new Bullet(Player.X + Player.Width,
+                            bulletController.AddShoot(new Bullet(Player.X + Player.Width - 5,
                                                                  Player.Y + (Player.Height / 2) + 10, 5 * DamageMulti));
-                            bulletController.AddShoot(new Bullet(Player.X + Player.Width,
+                            bulletController.AddShoot(new Bullet(Player.X + Player.Width - 10,
                                                                  Player.Y + (Player.Height / 2) + 20, 5 * DamageMulti));
                         }
-                        else if (DamageMulti > 4)
+                        else if (DamageMulti > 2)
                         {
                             bulletController.AddShoot(new Bullet(Player.X + Player.Width,
                                                                  Player.Y + (Player.Height / 2) - 10, 5 * DamageMulti));
@@ -327,7 +357,7 @@ namespace SpaceDestroyer.Controllers
                         }
                         else
                         {
-                            bulletController.AddShoot(new Bullet(GameController.Player.X + GameController.Player.Width, GameController.Player.Y + (GameController.Player.Height / 2),
+                            bulletController.AddShoot(new Bullet(Player.X + Player.Width, Player.Y + (Player.Height / 2),
                                                                  5 * DamageMulti));
                         }
                     }
@@ -372,6 +402,10 @@ namespace SpaceDestroyer.Controllers
                             bulletController.AddShoot(new Laser(Player.X, Player.Y, Player.Width, Player.Height, tmp.X,
                                                                 3 * DamageMulti));
                             tmp.Healt -= 3 * DamageMulti;
+                            FloatingTexts.Add(new DamageText(tmp.X + tmp.Width/2, tmp.Y, 3* DamageMulti));
+                            var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 0.5f, 1.0f, tmp.X, Player.Y+(Player.Height/2)-7, 15, 15, tmp.Speed);
+                            var res = spriteController.AddExplosion(animatedExplosion);
+                            Explosions.Add(res);
                         }
                         else
                         {
@@ -380,19 +414,19 @@ namespace SpaceDestroyer.Controllers
                         }
                     }
                     AmmoCounter[ChoosenWeapon - 1]--;
-                    LastShot = DateTime.Now;
+                    _lastShot = DateTime.Now;
                 }
             }
         }
 
         private Enemy FireLaser()
         {
-            Enemy e, tmp = null;
+            Enemy tmp = null;
 
-            for (int i = 0; i < EnemyList.Count; i++)
+            foreach (Enemy t in EnemyList)
             {
-                e = EnemyList[i];
-                if (e.Y < Player.Y + Player.Height / 2 && e.Y + e.Height > Player.Y + Player.Width / 2 && e.X > Player.X)
+                Enemy e = t;
+                if (e.Y < Player.Y + Player.Height / 2 && e.Y + e.Height > Player.Y + Player.Height / 2 && e.X > Player.X)
                 {
                     if (tmp == null)
                     {
@@ -421,10 +455,10 @@ namespace SpaceDestroyer.Controllers
             {
                 ChoosenWeapon = 6;
             }
-            findAmmoType();
+            FindAmmoType();
         }
 
-        private void findAmmoType()
+        private void FindAmmoType()
         {
             if (ChoosenWeapon == 1)
             {
@@ -465,21 +499,21 @@ namespace SpaceDestroyer.Controllers
             {
                 ChoosenWeapon = 1;
             }
-            findAmmoType();
+            FindAmmoType();
         }
 
         internal void SetChoosenWeapon(int p)
         {
             ChoosenWeapon = p;
-            findAmmoType();
+            FindAmmoType();
         }
         #endregion
 
         internal void CalculateExplosions(float gameTime)
         {
-            for (int i = 0; i < explosions.Count; i++)
+            foreach (AnimatedExplosion t in Explosions)
             {
-                explosions[i].UpdateFrame(gameTime);
+                t.UpdateFrame(gameTime);
             }
         }
 
@@ -492,22 +526,32 @@ namespace SpaceDestroyer.Controllers
         internal void CalculateBullets()
         {
             bulletController.Calculate();
+            foreach (var playerWeapon in bulletController.Bullets)
+            {
+                if (playerWeapon is Rocket)
+                {
+                    var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 0.5f, 1.0f, playerWeapon.X, playerWeapon.Y, 10, 10, 0);
+                    var res = spriteController.AddExplosion(animatedExplosion, 20);
+                    Explosions.Add(res);
+                }
+            }
         }
 
         internal void CalculateBulletsHits()
         {
-            Enemy e;
-            PlayerWeapon pw;
             for (int i = 0; i < bulletController.Bullets.Count; i++)
             {
-                pw = bulletController.Bullets[i];
+                bool expl = false;
+                PlayerWeapon pw = bulletController.Bullets[i];
                 for (int j = 0; j < EnemyList.Count; j++)
                 {
-                    e = EnemyList[j];
+                    Enemy e = EnemyList[j];
                     if (pw.X + pw.RadiusX > e.X && pw.X < e.X + e.Width && pw.Y + pw.RadiusY > e.Y &&
                         pw.Y < e.Y + e.Height)
                     {
                         e.Healt = e.Healt - pw.Power;
+                        FloatingTexts.Add(new DamageText(e.X + e.Width / 2, e.Y, pw.Power * DamageMulti));
+                        expl = true;
                         try
                         {
                             bulletController.Bullets.RemoveAt(i);
@@ -521,35 +565,31 @@ namespace SpaceDestroyer.Controllers
 
                     if (e.Healt <= 0)
                     {
-                        //TODO
-                        //Add loot
-                        //Todo skjekk om boss, hvis boss, spessiel loot og level ++
-
                         if (e.Boss)
                         {
-                            //TODO add boss looot
                             BossMode = false;
                             Level++;
                         }
-                        else
-                        {
-                            AddLoot(e);
-                        }
+                        AddLoot(e);
                         AddExplosion(e);
 
                         Score += e.Points;
-                        kills++;
+                        Kills++;
                         if (!BossMode)
                         {
-                            progresser = true;
+                            _progresser = true;
                         }
 
                         EnemyList.RemoveAt(j);
                         j--;
                     }
+                    if(expl){
+                        var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 0.5f, 1.0f, pw.X, pw.Y, 15, 15, 0);
+                        var res = spriteController.AddExplosion(animatedExplosion);
+                        Explosions.Add(res);
+                    }
                 }
             }
-            //TODO
         }
 #endregion
 
@@ -559,6 +599,20 @@ namespace SpaceDestroyer.Controllers
             for (int i = 0; i < PowerUps.Count; i++)
             {
                 Power loot = PowerUps[i];
+
+                if (loot.Boss)
+                {
+                    if (Player.X + Player.Width > loot.X && Player.X < loot.X + 94 && Player.Y + Player.Height > loot.Y &&
+                        Player.Y < loot.Y + 94)
+                    {
+                        PowerUps.RemoveAt(i);
+                        i--;
+                        DamageMulti++;
+                        continue;
+                    }
+                }
+
+
                 if (Player.X + Player.Width > loot.X && Player.X < loot.X + 33 && Player.Y + Player.Height > loot.Y &&
                     Player.Y < loot.Y + 33)
                 {
@@ -616,14 +670,20 @@ namespace SpaceDestroyer.Controllers
         {
             for (int i = 0; i < FloatingTexts.Count; i++)
             {
-                if (FloatingTexts[i].X < -100)
-                {
-                    FloatingTexts.RemoveAt(i);
-                    i--;
-                }
-                else if (FloatingTexts[i] is FloatingInfoText)
+                
+                if (FloatingTexts[i] is FloatingInfoText)
                 {
                     if ((FloatingTexts[i]).Done)
+                    {
+                        FloatingTexts.RemoveAt(i);
+                        i--;
+                        continue;
+                    }
+                }
+
+                if (FloatingTexts[i] is DamageText)
+                {
+                    if (((DamageText)FloatingTexts[i]).StartY - 40 > ((DamageText)FloatingTexts[i]).Y)
                     {
                         FloatingTexts.RemoveAt(i);
                         i--;
@@ -661,13 +721,13 @@ namespace SpaceDestroyer.Controllers
         #region background
         internal void CalculateBackgroundElements()
         {
-            starManager.Calculate();
-            backGroundColor.Calculate();
+            StarManager.Calculate();
+            _backGroundColor.Calculate();
         }
 
         internal Color GetBackgroundColor()
         {
-            return backGroundColor.GetBackgroundColor();
+            return _backGroundColor.GetBackgroundColor();
         }
         #endregion
 

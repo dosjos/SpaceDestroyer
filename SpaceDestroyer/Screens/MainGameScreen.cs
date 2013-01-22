@@ -151,7 +151,6 @@ namespace SpaceDestroyer.Screens
                 SoundController.ResumeBackgroundMusic();
                 gameController.CalculateBackgroundElements();
 
-
                 gameController.CheckAndUpdateLevel();
                 gameController.CalculateTexts(gameTime);
                 gameController.RemoveTexts();
@@ -172,6 +171,12 @@ namespace SpaceDestroyer.Screens
 
                 gameController.CalculateColisions();
                 gameController.CalculateExplosions((float) gameTime.ElapsedGameTime.TotalSeconds);
+
+                if (GameController.Player.Healt <= 0)
+                {
+                    LoadingScreen.Load(ScreenManager, true, ControllingPlayer, new BackgroundScreen(), new GameEndedScreen(gameController.Score, gameController.Level));
+                }
+
             }
             else
             {
@@ -190,13 +195,14 @@ namespace SpaceDestroyer.Screens
             spriteController.DrawBackGroundElements();
             spriteController.DrawFramesAndStats();
             spriteController.DrawFloatingTexts();
-            spriteController.DrawBullets();
             spriteController.DrawPlayer();
 
+            spriteController.DrawEnemyBullets();
             spriteController.DrawEnemies();
             spriteController.DrawLoot();
             spriteController.DrawExplosions();
-
+            spriteController.DrawBullets();
+            
             
 
             spriteController.FinnishDrawing();

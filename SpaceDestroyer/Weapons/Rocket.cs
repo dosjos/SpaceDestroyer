@@ -14,17 +14,22 @@ namespace SpaceDestroyer.Weapons
         private List<Enemies.Enemy> EnemyList;
         public Enemy Target { get; set; }
 
-        public double Angle { get; set; }
-
-
+        public float Angle { get; set; }
+        public Vector2 dir, Position;
+  
         public Rocket(int power, List<Enemies.Enemy> EnemyList)
         {
             Power = power;
             this.EnemyList = EnemyList;
-            X = GameController.Player.X + 30;
+            X = GameController.Player.X + GameController.Player.Width-10;
             Y = GameController.Player.Y + GameController.Player.Height/2;
             RadiusX = 40;
             RadiusY = 15;
+            Speed = 12;
+            Position = new Vector2(X,Y);
+
+            dir = new Vector2(X + 10, Y) - Position;
+            dir.Normalize();
         }
 
         
@@ -34,27 +39,31 @@ namespace SpaceDestroyer.Weapons
             {
                 Target = EnemyList[0];
 
-                if (Target.Y < Y)
-                {
-                    Y -= 10;
-                }
-                if (Target.Y > Y)
-                {
-                    Y += 10;
-                }
-                if (Target.X < X)
-                {
-                    X -= 10;
-                }
-                if (Target.X > X)
-                {
-                    X += 10;
-                }
+                Vector2 t = new Vector2(Target.X + Target.Width/2, Target.Y + Target.Height/2);
+                
+
+                dir = t - Position;
+                dir.Normalize();
+
+                Angle = (float)Math.Atan2(
+                          (double)dir.Y,
+                          (double)dir.X);
+
+                Position += dir * Speed;
+                X = (int)Position.X;
+                Y = (int)Position.Y;
             }
             else
             {
-                X += 10;
+                X = (int)Position.X;
+                Y = (int)Position.Y;
+                Position += dir * Speed;
             }
+
         }
+
+        public int XDistance { get; set; }
+
+        public int YDistance { get; set; }
     }
 }

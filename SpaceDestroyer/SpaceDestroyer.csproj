@@ -136,13 +136,16 @@
     <Compile Include="Controllers\LevelController.cs" />
     <Compile Include="Controllers\SoundController.cs" />
     <Compile Include="Controllers\SpriteController.cs" />
+    <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\Comet.cs" />
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\CargoCrate.cs" />
     <Compile Include="Enemies\SmallBoss.cs" />
+    <Compile Include="Enemies\Striker.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Enemies\Sentry.cs" />
     <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="GameData\DamageText.cs" />
     <Compile Include="GameData\EnemyData.cs" />
     <Compile Include="GameData\FloatingInfoText.cs" />
     <Compile Include="GameData\FloatingText.cs" />
@@ -156,6 +159,7 @@
     <Compile Include="ScreenManagers\InputState.cs" />
     <Compile Include="ScreenManagers\ScreenManager.cs" />
     <Compile Include="Screens\BackgroundScreen.cs" />
+    <Compile Include="Screens\GameEndedScreen.cs" />
     <Compile Include="Screens\MainGameScreen.cs" />
     <Compile Include="Screens\HighscoreScreen.cs" />
     <Compile Include="Screens\IMessageDisplay.cs" />
@@ -167,6 +171,10 @@
     <Compile Include="Screens\MessageDisplayComponent.cs" />
     <Compile Include="Screens\PauseMenuScreen.cs" />
     <Compile Include="Screens\PlayerIndexEventArgs.cs" />
+    <Compile Include="Screens\SettingsScreen.cs" />
+    <Compile Include="Weapons\DirectionalBullet.cs" />
+    <Compile Include="Weapons\EBomb.cs" />
+    <Compile Include="Weapons\EBullet.cs" />
     <Compile Include="Weapons\EnemyWeapons.cs" />
     <Compile Include="Weapons\Laser.cs" />
     <Compile Include="Weapons\PlayerWeapon.cs" />

@@ -12,13 +12,12 @@ namespace SpaceDestroyer.GameData
         {
             Text = info;
             Text2 = info2;
-            X = x;
-            Y = Game1.TopLimit;
+            X = 100;
+            Y = Game1.TopLimit + 40;
         }
 
         public override void Calculate()
         {
-            X -= 5;
         }
 
         public override void Calculate(GameTime gt)
@@ -27,9 +26,8 @@ namespace SpaceDestroyer.GameData
             {
                 teller = gt.ElapsedGameTime;
             }
-            X = 200;
             temp += gt.ElapsedGameTime;
-            if (teller.TotalSeconds + 4 < temp.TotalSeconds)
+            if (teller.TotalSeconds + 5 < temp.TotalSeconds)
             {
                 Done = true;
             }

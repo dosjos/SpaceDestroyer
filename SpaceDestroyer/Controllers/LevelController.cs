@@ -6,7 +6,6 @@ using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using SpaceDestroyer.Enemies;
 using SpaceDestroyer.GameData;
-using SpaceDestroyer.Screens;
 using SpaceDestroyer.Weapons;
 
 namespace SpaceDestroyer.Controllers
@@ -68,6 +67,7 @@ namespace SpaceDestroyer.Controllers
         internal Enemy AddEnemy()
         {
             //TODO add sjekk for å hoppe ut når alle levler er nådd
+            if (levels.Count <= Level - 1) return null;
             List<EnemyData> potentialEnemies = levels[Level - 1].Enemies;
             foreach (EnemyData p in potentialEnemies)
             {
@@ -103,6 +103,14 @@ namespace SpaceDestroyer.Controllers
                                                   p.Droprate,
                                                    rand, p.CrashDamage);
                         }
+                        if (p.EnemyNumber == 4)
+                        {
+                            return new Striker(p.Health, p.Score, EnemyWeapons,p.Droprate, rand, p.CrashDamage);
+                        }
+                        if (p.EnemyNumber == 5)
+                        {
+                            return new Bomber(p.Health, p.Score, EnemyWeapons, p.Droprate, rand, p.CrashDamage);
+                        }
                     }
                 }
             }
@@ -123,7 +131,7 @@ namespace SpaceDestroyer.Controllers
         {
             levels[Level - 1].InfoTexts[0].Seen = true;
             return new FloatingInfoText(levels[Level - 1].InfoTexts[0].Info, levels[Level - 1].InfoTexts[0].Info2,
-                                        200);
+                                        Game1.TopLimit + 40);
         }
     }
 }

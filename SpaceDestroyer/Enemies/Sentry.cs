@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SpaceDestroyer.Controllers;
 using SpaceDestroyer.Player;
 using SpaceDestroyer.Weapons;
 
@@ -30,6 +31,15 @@ namespace SpaceDestroyer.Enemies
         public override void Calculate()
         {
             X -= rand.Next(1, 4);
+
+            if (GameController.Player.Y + GameController.Player.Height > Y && GameController.Player.Y < Y + Height)
+            {
+                if ((DateTime.Now - LastShoot).TotalMilliseconds > 1500)
+                {
+                    WeaponList.Add(new EBullet(X, Y + Width/2, 10));
+                    LastShoot = DateTime.Now;
+                }
+            }
         }
     }
 }

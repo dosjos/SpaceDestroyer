@@ -37,7 +37,13 @@ namespace SpaceDestroyer.Controllers
             {
                 MediaPlayer.Play(_bgsong);
                 MediaPlayer.IsRepeating = true;
+                
             }
+        }
+
+        public static void AdjustSongVolume(int level)
+        {
+            MediaPlayer.Volume = level/10.0f;
         }
 
         internal static void SetContetn(ContentManager Contents)
@@ -70,6 +76,11 @@ namespace SpaceDestroyer.Controllers
             exposionSound.Play();
         }
 
-        
+
+
+        internal static void AdjustSfx(int sfxLevel)
+        {
+            SoundEffect.MasterVolume = sfxLevel/10.0f;
+        }
     }
 }

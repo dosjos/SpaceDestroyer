@@ -27,5 +27,13 @@ namespace SpaceDestroyer.Enemies
         public int Type { get; set; }
 
         public abstract void Calculate();
+        public Enemy()
+        {
+            
+        }
+        public Enemy(Boolean boss)
+        {
+            this.Boss = boss;
+        }
     }
 }
