@@ -28,7 +28,7 @@ namespace SpaceDestroyer.Controllers
 
         public GameController gameController { get; set; }
 
-
+        private int ShieldBlink;
 
         #endregion
 
@@ -76,13 +76,15 @@ namespace SpaceDestroyer.Controllers
             LongFlame = content.Load<Texture2D>("Shapes/pflame");
             ShortFlame2 = content.Load<Texture2D>("Shapes/pflamel2");
             LongFlame2 = content.Load<Texture2D>("Shapes/pflame2");
-
+            PShield = content.Load<Texture2D>("Player/shield");
 
             CargoCrateT = content.Load<Texture2D>("Enemies/StashCrate");
             EnemySentry = content.Load<Texture2D>("Enemies/EnemySentry");
             EnemyComet = content.Load<Texture2D>("Enemies/comet");
             EnemyStriker = content.Load<Texture2D>("Enemies/EnemyStriker");
             EnemyBomber = content.Load<Texture2D>("Enemies/Bomber");
+            EBomb = content.Load<Texture2D>("Weapons/Bomb");
+
 
             SmallBossT = content.Load<Texture2D>("Enemies/boss");
             Exp1 = content.Load<Texture2D>("Shapes/ani2");
@@ -96,6 +98,7 @@ namespace SpaceDestroyer.Controllers
         #region SpritesAndFontsDeclaration
         private Texture2D StarTexture;
         public Texture2D ship { get; set; }
+        public Texture2D PShield { get; set; }
         public Texture2D dummyTexture { get; set; }
         public Texture2D Bullet { get; set; }
         public Texture2D Wall { get; set; }
@@ -106,6 +109,7 @@ namespace SpaceDestroyer.Controllers
         public Texture2D EnemyComet { get; set; }
         public Texture2D EnemyStriker { get; set; }
         public Texture2D EnemyBomber { get; set; }
+        public Texture2D EBomb { get; set; }
         public Texture2D CrateAmmo { get; set; }
         public Texture2D Crate { get; set; }
         public Texture2D CrateSpecial { get; set; }
@@ -437,9 +441,9 @@ namespace SpaceDestroyer.Controllers
                 }
                 else if (playerWeapon is Rocket)
                 {
-                    //spriteBatch.Draw(dummyTexture,
-                    //             new Rectangle(playerWeapon.X, playerWeapon.Y, playerWeapon.RadiusX,
-                    //                           playerWeapon.RadiusY), Color.Green);
+                   //spriteBatch.Draw(dummyTexture,
+                   //              new Rectangle(playerWeapon.X, playerWeapon.Y, playerWeapon.RadiusX,
+                   //                            playerWeapon.RadiusY), Color.Green);
                     Vector2 v = new Vector2();
                     //if (((Rocket) playerWeapon).Angle > Math.PI/2)
                     //{
@@ -447,9 +451,13 @@ namespace SpaceDestroyer.Controllers
                     //}
                     //else
                     //{
-                        v = new Vector2(-5,15);
+                      //  v = new Vector2(-10,7);
                    // }
-
+                    
+                    v = Rotate(((Rocket) playerWeapon).Angle, 0,
+                               new Vector2(playerWeapon.RadiusX/2,
+                                           playerWeapon.RadiusY/2));
+                    
                      spriteBatch.Draw(
                          RocketTexture, 
                          ((Rocket)playerWeapon).Position,
@@ -476,6 +484,11 @@ namespace SpaceDestroyer.Controllers
                 }
             }
         }
+
+        private Vector2 Rotate(float angle, float distance, Vector2 centre)
+        {
+            return new Vector2((float)(distance * Math.Cos(angle)), (float)(distance * Math.Sin(angle))) + centre;
+        }
         #endregion
 
         #region StartFinnish
@@ -501,45 +514,11 @@ namespace SpaceDestroyer.Controllers
             // spriteBatch.Draw(dummyTexture, new Rectangle(player.X, player.Y, player.Height, player.Width), Color.Gray);
             if (GameController.Player.boost != 0 && GameController.Player.Booster > 0)
             {
-                if (FlameCounter < 5)
-                {
-                    spriteBatch.Draw(LongFlame,
-                                     new Rectangle(GameController.Player.X - LongFlame.Width + 10, GameController.Player.Y + 35,
-                                                   LongFlame.Width, LongFlame.Height), Color.White);
-                    spriteBatch.Draw(LongFlame,
-                                     new Rectangle(GameController.Player.X - LongFlame.Width + 10, GameController.Player.Y + 3,
-                                                   LongFlame.Width, LongFlame.Height), Color.White);
-                }
-                else
-                {
-                    spriteBatch.Draw(LongFlame2,
-                                     new Rectangle(GameController.Player.X - LongFlame.Width + 10, GameController.Player.Y + 35,
-                                                   LongFlame.Width, LongFlame.Height), Color.White);
-                    spriteBatch.Draw(LongFlame2,
-                                     new Rectangle(GameController.Player.X - LongFlame.Width + 10, GameController.Player.Y + 3,
-                                                   LongFlame.Width, LongFlame.Height), Color.White);
-                }
+                DrawPlayerBigFlames();
             }
             else
             {
-                if (FlameCounter < 5)
-                {
-                    spriteBatch.Draw(ShortFlame,
-                                     new Rectangle(GameController.Player.X - ShortFlame.Width + 10, GameController.Player.Y + 35,
-                                                   ShortFlame.Width, ShortFlame.Height), Color.White);
-                    spriteBatch.Draw(ShortFlame,
-                                     new Rectangle(GameController.Player.X - ShortFlame.Width + 10, GameController.Player.Y + 10,
-                                                   ShortFlame.Width, ShortFlame.Height), Color.White);
-                }
-                else
-                {
-                    spriteBatch.Draw(ShortFlame2,
-                                     new Rectangle(GameController.Player.X - ShortFlame.Width + 10, GameController.Player.Y + 35,
-                                                   ShortFlame.Width, ShortFlame.Height), Color.White);
-                    spriteBatch.Draw(ShortFlame2,
-                                     new Rectangle(GameController.Player.X - ShortFlame.Width + 10, GameController.Player.Y + 10,
-                                                   ShortFlame.Width, ShortFlame.Height), Color.White);
-                }
+                DrawPlayerShortFlames();
             }
             spriteBatch.Draw(ship,
                              new Rectangle(GameController.Player.X, GameController.Player.Y, GameController.Player.Width, GameController.Player.Height),
@@ -548,6 +527,72 @@ namespace SpaceDestroyer.Controllers
             if (FlameCounter == 10)
             {
                 FlameCounter = 0;
+            }
+
+            DrawPlayerShield();
+        }
+
+        private void DrawPlayerBigFlames()
+        {
+            if (FlameCounter < 5)
+            {
+                spriteBatch.Draw(LongFlame,
+                                 new Rectangle(GameController.Player.X - LongFlame.Width + 10, GameController.Player.Y + 35,
+                                               LongFlame.Width, LongFlame.Height), Color.White);
+                spriteBatch.Draw(LongFlame,
+                                 new Rectangle(GameController.Player.X - LongFlame.Width + 10, GameController.Player.Y + 3,
+                                               LongFlame.Width, LongFlame.Height), Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(LongFlame2,
+                                 new Rectangle(GameController.Player.X - LongFlame.Width + 10, GameController.Player.Y + 35,
+                                               LongFlame.Width, LongFlame.Height), Color.White);
+                spriteBatch.Draw(LongFlame2,
+                                 new Rectangle(GameController.Player.X - LongFlame.Width + 10, GameController.Player.Y + 3,
+                                               LongFlame.Width, LongFlame.Height), Color.White);
+            }
+        }
+
+        private void DrawPlayerShortFlames()
+        {
+            if (FlameCounter < 5)
+            {
+                spriteBatch.Draw(ShortFlame,
+                                 new Rectangle(GameController.Player.X - ShortFlame.Width + 10, GameController.Player.Y + 35,
+                                               ShortFlame.Width, ShortFlame.Height), Color.White);
+                spriteBatch.Draw(ShortFlame,
+                                 new Rectangle(GameController.Player.X - ShortFlame.Width + 10, GameController.Player.Y + 10,
+                                               ShortFlame.Width, ShortFlame.Height), Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(ShortFlame2,
+                                 new Rectangle(GameController.Player.X - ShortFlame.Width + 10, GameController.Player.Y + 35,
+                                               ShortFlame.Width, ShortFlame.Height), Color.White);
+                spriteBatch.Draw(ShortFlame2,
+                                 new Rectangle(GameController.Player.X - ShortFlame.Width + 10, GameController.Player.Y + 10,
+                                               ShortFlame.Width, ShortFlame.Height), Color.White);
+            }
+        }
+
+        private void DrawPlayerShield()
+        {
+            if (GameController.Player.ShieldOn && GameController.Player.Shield > 0)
+            {
+                ShieldBlink++;
+                if (GameController.Player.Shield < 30 && ShieldBlink < 5)
+                {
+                    return;
+                }
+                spriteBatch.Draw(PShield,
+                                 new Rectangle(GameController.Player.X - 20, GameController.Player.Y - 20,
+                                               GameController.Player.Width + 50, GameController.Player.Height + 40),
+                                 Color.White);
+                if (ShieldBlink == 11)
+                {
+                    ShieldBlink = 0;
+                }
             }
         }
 
@@ -675,6 +720,24 @@ namespace SpaceDestroyer.Controllers
                     spriteBatch.Draw(Bullet, new Rectangle(enemyWeaponse.X, enemyWeaponse.Y, enemyWeaponse.RadiusX, enemyWeaponse.RadiusY),
                                  Color.Orange);
                 }
+                if (enemyWeaponse is EBomb)
+                {
+                    if (((EBomb) enemyWeaponse).flash > 10)
+                    {
+                        spriteBatch.Draw(EBomb,
+                                         new Rectangle(enemyWeaponse.X, enemyWeaponse.Y, enemyWeaponse.RadiusX,
+                                                       enemyWeaponse.RadiusY),
+                                         Color.Red);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(EBomb,
+                                         new Rectangle(enemyWeaponse.X, enemyWeaponse.Y, enemyWeaponse.RadiusX,
+                                                       enemyWeaponse.RadiusY),
+                                         Color.White);
+                    }
+                }
+
             }
         }
 

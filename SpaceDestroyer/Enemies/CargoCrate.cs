@@ -11,18 +11,9 @@ namespace SpaceDestroyer.Enemies
 
         public CargoCrate(int health, int score, 
                           List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash)
+            : base(health, score, bulletList, dropRate, rand, crash, false)
         {
-            CrashDamage = crash;
-            Healt = health;
-            MaxHealt = health;
-            Points = score;
-            this.TopLimit = Game1.TopLimit;
-            this.BottomLimit = Game1.BLimit;
-            WeaponList = bulletList;
-            DropRate = dropRate;
-            this.rand = rand;
-            Y = rand.Next(TopLimit + 30, BottomLimit - 30);
-            X = Game1.SWidth + 20;
+           
             Height = 44;
             Width = 44;
             Type = 3;
@@ -30,7 +21,7 @@ namespace SpaceDestroyer.Enemies
 
         public override void Calculate()
         {
-            X -= r.Next(-2, 6);
+            X -= r.Next(-2, 10);
             Y += r.Next(-1, 2);
 
             if (Y < Game1.TopLimit)

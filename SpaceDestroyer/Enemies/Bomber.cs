@@ -9,37 +9,62 @@ namespace SpaceDestroyer.Enemies
 {
     class Bomber : Enemy
     {
-        
+        private enum State
+        {
+            Shooting,
+            Moving
+        };
+
+        State Action = State.Moving;
+
         public Bomber(int health, int score,
                        List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash)
+            : base(health, score, bulletList, dropRate, rand, crash, false)
         {
-            CrashDamage = crash;
-            Healt = health;
-            MaxHealt = health;
-            Points = score;
-            this.TopLimit = Game1.TopLimit;
-            this.BottomLimit = Game1.BLimit;
-            WeaponList = bulletList;
-            DropRate = dropRate;
-            this.rand = rand;
-            Y = rand.Next(TopLimit + 30, BottomLimit - Height);
-            X = Game1.SWidth + 20;
+           
             Height = 74;
             Width = 150;
             Type = 5;
             pos = new Vector2(X, Y);
-            Speed = 7;
+            
             TargetX = rand.Next(-100, Game1.SWidth);
             TargetY = rand.Next(Game1.TopLimit, Game1.BLimit + Height);
             dest = new Vector2(TargetX, TargetY);
-            WeaponList = bulletList;
+         
             shotSpeed = rand.Next(1000, 2000);
+            LastMove = DateTime.Now;
         }
 
         
         public override void Calculate()
         {
-            X -= 2;
+            if (Action == State.Moving)
+            {
+                Speed = 2;
+                X -= 2;
+                if ((DateTime.Now - LastMove).TotalMilliseconds > rand.Next(5000, 13000))
+                {
+                    Action = State.Shooting;
+                }
+
+            }else if (Action == State.Shooting)
+            {
+
+                Speed = 0;
+                if ((DateTime.Now - LastShoot).TotalMilliseconds > 500)
+                {
+                    WeaponList.Add(new EBomb(X + Width/2, Y + Height/2));
+                    LastShoot = DateTime.Now;
+                    
+                    Shoots++;
+                    if (Shoots == 2)
+                    {
+                        LastMove = DateTime.Now;
+                        Action = State.Moving;
+                        Shoots = 0;
+                    }
+                }
+            }
         }
 
         public int TargetX { get; set; }
@@ -51,5 +76,9 @@ namespace SpaceDestroyer.Enemies
         public int shotSpeed { get; set; }
 
         public Vector2 pos { get; set; }
+
+        public int Shoots { get; set; }
+
+        public DateTime LastMove { get; set; }
     }
 }

@@ -10,18 +10,9 @@ namespace SpaceDestroyer.Enemies
     {
         public Sentry(int health, int score, List<EnemyWeapons> bulletList,
                       int dropRate, Random rand, int crash)
+            : base(health, score, bulletList, dropRate, rand, crash, false)
         {
-            CrashDamage = crash;
-            Healt = health;
-            MaxHealt = health;
-            Points = score;
-            this.TopLimit = Game1.TopLimit;
-            this.BottomLimit = Game1.BLimit;
-            WeaponList = bulletList;
-            DropRate = dropRate;
-            this.rand = rand;
-            Y = rand.Next(TopLimit + 30, BottomLimit - 40);
-            X = Game1.SWidth + 20;
+           
             Height = 40;
             Width = 57;
             Type = 2;

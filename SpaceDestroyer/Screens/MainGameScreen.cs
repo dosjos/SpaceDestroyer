@@ -25,6 +25,7 @@ namespace SpaceDestroyer.Screens
             {
                 return base.IsActive;
             }
+            set{}
         }
 
         public MainGameScreen()
@@ -104,6 +105,12 @@ namespace SpaceDestroyer.Screens
             if (keyboardState.IsKeyDown(Keys.D6)) gameController.SetChoosenWeapon(6);
 
 
+            if (keyboardState.IsKeyDown(Keys.U) && !oldState.IsKeyDown(Keys.U))
+            {
+                paused = !paused;
+            }
+
+
             if (keyboardState.IsKeyDown(Keys.LeftShift) ||
                     gamePadState.Buttons.X == ButtonState.Pressed)
             {
@@ -146,12 +153,14 @@ namespace SpaceDestroyer.Screens
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
             
             
-            if (IsActive)
+            if (IsActive && !paused)
             {
                 SoundController.ResumeBackgroundMusic();
                 gameController.CalculateBackgroundElements();
 
-                gameController.CheckAndUpdateLevel();
+                var t = gameController.CheckAndUpdateLevel();
+                
+
                 gameController.CalculateTexts(gameTime);
                 gameController.RemoveTexts();
 
@@ -163,6 +172,7 @@ namespace SpaceDestroyer.Screens
 
                 gameController.CalculateEnemyFire();
 
+                gameController.RemoveEnemyBullets();
                 gameController.RemoveBullets();
                 gameController.CalculateBullets();
                 gameController.CalculateBulletsHits();
@@ -172,7 +182,7 @@ namespace SpaceDestroyer.Screens
                 gameController.CalculateColisions();
                 gameController.CalculateExplosions((float) gameTime.ElapsedGameTime.TotalSeconds);
 
-                if (GameController.Player.Healt <= 0)
+                if (GameController.Player.Healt <= 0 || !t)
                 {
                     LoadingScreen.Load(ScreenManager, true, ControllingPlayer, new BackgroundScreen(), new GameEndedScreen(gameController.Score, gameController.Level));
                 }
@@ -217,7 +227,9 @@ namespace SpaceDestroyer.Screens
             
         }
 
-        
 
+
+
+        public bool paused { get; set; }
     }
 }

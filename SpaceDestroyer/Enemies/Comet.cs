@@ -7,20 +7,10 @@ namespace SpaceDestroyer.Enemies
         public int dir;
         public double rotate = 0;
 
-        public Comet(int p1, int p2, int p3, Random rand, int crash)
+        public Comet(int health, int score, int droprate, Random rand, int crash)
+            : base(health, score, null, droprate, rand, crash, false)
         {
-            CrashDamage = crash;
-            Healt = p1;
-            MaxHealt = p1;
-            Points = p2;
-            this.TopLimit = Game1.TopLimit;
-            this.BottomLimit = Game1.BLimit;
-            DropRate = p3;
             Width = Width;
-            this.rand = rand;
-            X = Game1.SWidth + 10;
-
-            Y = rand.Next(TopLimit + 10, BottomLimit - 10);
             Type = 1;
             Width = rand.Next(30, 130);
             Height = rand.Next(30, 130);

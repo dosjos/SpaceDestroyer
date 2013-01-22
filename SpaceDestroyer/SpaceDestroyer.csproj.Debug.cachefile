@@ -39,6 +39,8 @@ Content\Weapons\rocket.xnb
 Content\Fonts\SmalNumbers.xnb
 Content\Enemies\Bomber.xnb
 Content\Enemies\EnemyStriker.xnb
+Content\Player\shield.xnb
+Content\Weapons\Bomb.xnb
 Content\Sound\spreader.wma
 Content\Music\bg.wma
 Content\leveldata.xml

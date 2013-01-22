@@ -4,11 +4,17 @@
 <!--Type 1 == Astroide
     Type 2 == SentryShip
     Type 3 == Cargo Container
-    Type 4 == Striker
-    Type 5 == Bomber
+    Type 4 == Striker //Raske, krever litt å treffe
+    Type 5 == Bomber //Bør ha mye helse
+    Type 6 == Crate with Charge
+    Type 7 == Striker med skjold
+    Type 8 == Frigat // har laser, og raketter
     
     Boss
     Type 1 == SmallBoss
+    Type 2 == 
+    Type 3 ==
+    Type 4 ==
     
     -->
   <Level>
@@ -20,12 +26,12 @@
 
     <Enemies>
       <EnemyData>
-        <Type>5</Type>
+        <Type>3</Type>
         <Droprate>0</Droprate>
         <Boss>false</Boss>
-        <Healt>5000</Healt>
+        <Healt>100</Healt>
         <Score>3</Score>
-        <Spawnrate>1500</Spawnrate>
+        <Spawnrate>1000</Spawnrate>
         <CrashDamage>5</CrashDamage>
       </EnemyData>
 

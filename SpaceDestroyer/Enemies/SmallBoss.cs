@@ -14,21 +14,11 @@ namespace SpaceDestroyer.Enemies
 
         public SmallBoss(int health, int score, 
                          List<EnemyWeapons> EnemyWeapons, Random rand, int crash, List<Enemy> enemyList)
+            : base(health, score, EnemyWeapons, 100, rand, crash, true)
         {
-            Healt = health;
-            MaxHealt = health;
-            Points = score;
-            this.TopLimit = Game1.TopLimit;
-            this.BottomLimit = Game1.BLimit;
-            this.EnemyWeapons = EnemyWeapons;
             Width = 200;
             Height = 200;
-            this.rand = rand;
-            CrashDamage = crash;
             _enemyList = enemyList;
-            X = Game1.SWidth + 10;
-            Y = rand.Next(TopLimit + 50, BottomLimit - 100);
-            Boss = true;
             limit = (Game1.SWidth/2) + 70;
         }
 

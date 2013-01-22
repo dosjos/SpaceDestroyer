@@ -16,28 +16,17 @@ namespace SpaceDestroyer.Enemies
         private int shotSpeed;
 
         public Striker(int health, int score,
-                       List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash)
+                       List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash) 
+            : base(health, score, bulletList, dropRate, rand, crash, false)
         {
-            CrashDamage = crash;
-            Healt = health;
-            MaxHealt = health;
-            Points = score;
-            this.TopLimit = Game1.TopLimit;
-            this.BottomLimit = Game1.BLimit;
-            WeaponList = bulletList;
-            DropRate = dropRate;
-            this.rand = rand;
-            Y = rand.Next(TopLimit + 30, BottomLimit - Height);
-            X = Game1.SWidth + 20;
+            Speed = 7;
             Height = 60;
             Width = 60;
             Type = 4;
             pos = new Vector2(X, Y);
-            Speed = 7;
             TargetX = rand.Next(-100, Game1.SWidth);
             TargetY = rand.Next(Game1.TopLimit, Game1.BLimit + Height);
             dest = new Vector2(TargetX, TargetY);
-            WeaponList = bulletList;
             shotSpeed = rand.Next(1000, 2000);
         }
         public override void Calculate()

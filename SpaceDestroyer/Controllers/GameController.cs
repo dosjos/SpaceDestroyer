@@ -123,7 +123,7 @@ namespace SpaceDestroyer.Controllers
 
 
         #region Levels
-        internal void CheckAndUpdateLevel()
+        internal Boolean CheckAndUpdateLevel()
         {
             if (_levelController.HasText())
             {
@@ -140,6 +140,11 @@ namespace SpaceDestroyer.Controllers
                     _progresser = false;
                 }
             }
+            if (_levelController.Level == _levelController.levels.Count && EnemyList.Count == 0)
+            {
+                return false;
+            }
+            return true;
         }
         #endregion
 
@@ -241,6 +246,32 @@ namespace SpaceDestroyer.Controllers
 
                     EnemyBullets.RemoveAt(i);
                     i--;
+                }
+            }
+        }
+
+        public void RemoveEnemyBullets()
+        {
+            for (int i = 0; i < EnemyBullets.Count; i++)
+            {
+                if (EnemyBullets[i].X < -20 || EnemyBullets[i].X > Game1.SWidth + 20 || EnemyBullets[i].Y < 0 - 20 ||
+                    EnemyBullets[i].Y > Game1.SHeight + 20)
+                {
+                    EnemyBullets.RemoveAt((i));
+                    i--;
+                    continue;
+                }
+
+                if (EnemyBullets[i] is EBomb)
+                {
+                    if (((EBomb) EnemyBullets[i]).destruct <= 0)
+                    {
+                        var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 0.5f, 1.0f, EnemyBullets[i].X-10, EnemyBullets[i].Y-10, 40, 40, 0);
+                        var res = spriteController.AddExplosion(animatedExplosion);
+                        Explosions.Add(res);
+                        EnemyBullets.RemoveAt((i));
+                        i--;
+                    }
                 }
             }
         }
@@ -403,7 +434,7 @@ namespace SpaceDestroyer.Controllers
                                                                 3 * DamageMulti));
                             tmp.Healt -= 3 * DamageMulti;
                             FloatingTexts.Add(new DamageText(tmp.X + tmp.Width/2, tmp.Y, 3* DamageMulti));
-                            var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 0.5f, 1.0f, tmp.X, Player.Y+(Player.Height/2)-7, 15, 15, tmp.Speed);
+                            var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 0.5f, 1.0f, tmp.X, Player.Y+(Player.Height/2)-7, 15, 15, 0);
                             var res = spriteController.AddExplosion(animatedExplosion);
                             Explosions.Add(res);
                         }

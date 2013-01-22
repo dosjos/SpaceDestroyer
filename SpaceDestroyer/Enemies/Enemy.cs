@@ -29,11 +29,28 @@ namespace SpaceDestroyer.Enemies
         public abstract void Calculate();
         public Enemy()
         {
-            
+           
         }
-        public Enemy(Boolean boss)
+        
+        public Enemy(int health, int score, List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash, Boolean boss) 
         {
-            this.Boss = boss;
+            Boss = boss;
+            DropRate = dropRate;
+            
+            CrashDamage = crash;
+            Healt = health;
+            MaxHealt = health;
+            Points = score;
+            WeaponList = bulletList;
+            DropRate = dropRate;
+            WeaponList = bulletList;
+
+            this.rand = rand;
+            Y = rand.Next(Game1.TopLimit + 30, Game1.BLimit - Height);
+            X = Game1.SWidth + 20;
+            TopLimit = Game1.TopLimit;
+            BottomLimit = Game1.BLimit;
         }
+
     }
 }
