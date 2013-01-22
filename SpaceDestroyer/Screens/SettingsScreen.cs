@@ -56,7 +56,6 @@ namespace SpaceDestroyer.Screens
             }
             MusicLevel.Text = music + level;
             SoundController.AdjustSongVolume(level);
-            
         }
 
         
