@@ -7,11 +7,9 @@ namespace SpaceDestroyer.Enemies
         public int dir;
         public double rotate = 0;
 
-        public Comet(int health, int score, int droprate, Random rand, int crash)
-            : base(health, score, null, droprate, rand, crash, false)
+        public Comet(int health, int score, int droprate, Random rand, int crash, int type)
+            : base(health, score, null, droprate, rand, crash, false, type)
         {
-            Width = Width;
-            Type = 1;
             Width = rand.Next(30, 130);
             Height = rand.Next(30, 130);
             dir = rand.Next(0, 2);

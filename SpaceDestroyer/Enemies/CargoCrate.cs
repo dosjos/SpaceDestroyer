@@ -9,14 +9,13 @@ namespace SpaceDestroyer.Enemies
     {
         private readonly Random r = new Random();
 
-        public CargoCrate(int health, int score, 
-                          List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash)
-            : base(health, score, bulletList, dropRate, rand, crash, false)
+        public CargoCrate(int health, int score,
+                          List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash, int type)
+            : base(health, score, bulletList, dropRate, rand, crash, false, type)
         {
            
             Height = 44;
             Width = 44;
-            Type = 3;
         }
 
         public override void Calculate()

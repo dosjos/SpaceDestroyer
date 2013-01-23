@@ -16,13 +16,12 @@ namespace SpaceDestroyer.Enemies
         private int shotSpeed;
 
         public Striker(int health, int score,
-                       List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash) 
-            : base(health, score, bulletList, dropRate, rand, crash, false)
+                       List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash, int type) 
+            : base(health, score, bulletList, dropRate, rand, crash, false, type)
         {
             Speed = 7;
             Height = 60;
             Width = 60;
-            Type = 4;
             pos = new Vector2(X, Y);
             TargetX = rand.Next(-100, Game1.SWidth);
             TargetY = rand.Next(Game1.TopLimit, Game1.BLimit + Height);
@@ -44,7 +43,8 @@ namespace SpaceDestroyer.Enemies
             pos += dir * Speed;
             X = (int)pos.X;
             Y = (int)pos.Y;
-
+            if (Y < Game1.TopLimit) Y = Game1.TopLimit;
+            if (Y > Game1.BLimit + Height) Y = Game1.BLimit + Height;
             CalcHeading();
             Shoot();
 

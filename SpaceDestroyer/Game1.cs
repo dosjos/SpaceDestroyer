@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,11 +24,14 @@ namespace SpaceDestroyer
         public static int BLimit;
         public static GraphicsDeviceManager _graphics;
         public ScreenManager screenManager { get; set; }
+        public static List<string> Resulotions = new List<string>();
+        private static List<DisplayMode> modes = new List<DisplayMode>();
+
         //public static PlayerOne Player;
-        
+
         public Vector2 StartPos;
 
-       // 
+        // 
 
         public Game1()
         {
@@ -44,12 +48,56 @@ namespace SpaceDestroyer
             Components.Add(new GamerServicesComponent(this));
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);
-            Console.WriteLine(DateTime.Now);
+
+            foreach (DisplayMode mode in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
+            {
+                modes.Add(mode);
+                Resulotions.Add("" + mode.Width + "x" + mode.Height);
+            }
+
         }
 
-        
+        internal static void SetResulotion(int resCounter)
+        {
 
-       
+#if XBOX
+            if(resCounter == 0){
+            SHeight = _graphics.PreferredBackBufferHeight = 480;
+            SWidth = _graphics.PreferredBackBufferWidth = 640;
+            
+            
+            }else if(resCounter == 1){
+            SHeight = _graphics.PreferredBackBufferHeight = 720;
+            SWidth = _graphics.PreferredBackBufferWidth = 1280;
+            }else if(resCounter == 2){
+            SHeight = _graphics.PreferredBackBufferHeight = 1080;
+            SWidth = _graphics.PreferredBackBufferWidth = 1920;
+            }
+
+            BLimit = _graphics.PreferredBackBufferHeight - 120;
+            _graphics.ApplyChanges();
+            
+#else
+            SHeight = _graphics.PreferredBackBufferHeight = modes[resCounter].Height;
+            SWidth = _graphics.PreferredBackBufferWidth = modes[resCounter].Width;
+            BLimit = _graphics.PreferredBackBufferHeight - 120;
+            _graphics.ApplyChanges();
+#endif
+        }
+
+
+        public static void FullScreen()
+        {
+            _graphics.IsFullScreen = true;
+            _graphics.ApplyChanges();
+        }
+
+        public static void WindowScreen()
+        {
+            _graphics.IsFullScreen = false;
+            _graphics.ApplyChanges();
+        }
+
         protected override void Initialize()
         {
 #if XBOX
@@ -111,7 +159,7 @@ namespace SpaceDestroyer
         protected override void Draw(GameTime gameTime)
         {
             _graphics.GraphicsDevice.Clear(Color.Black);
-            
+
             base.Draw(gameTime);
         }
 
@@ -207,5 +255,7 @@ namespace SpaceDestroyer
             //    GameController.CurrentState = GameController.State.GameOver;
             //}
         }
+
+
     }
 }

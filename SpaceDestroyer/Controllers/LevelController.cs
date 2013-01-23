@@ -76,7 +76,7 @@ namespace SpaceDestroyer.Controllers
                     if (p.EnemyNumber == 1)
                     {
                         return new SmallBoss(p.Health, p.Score, EnemyWeapons,
-                                             rand, p.CrashDamage, _enemyList);
+                                             rand, p.CrashDamage, _enemyList, p.EnemyNumber);
                     }
                 }
                 else
@@ -88,28 +88,28 @@ namespace SpaceDestroyer.Controllers
                         if (p.EnemyNumber == 1)
                         {
                             return new Comet(p.Health, p.Score, p.Droprate, rand,
-                                             p.CrashDamage);
+                                             p.CrashDamage, p.EnemyNumber);
                         }
 
                         if (p.EnemyNumber == 2)
                         {
                             return new Sentry(p.Health, p.Score,  EnemyWeapons,
                                               p.Droprate,
-                                               rand, p.CrashDamage);
+                                               rand, p.CrashDamage, p.EnemyNumber);
                         }
                         if (p.EnemyNumber == 3)
                         {
                             return new CargoCrate(p.Health, p.Score, EnemyWeapons,
                                                   p.Droprate,
-                                                   rand, p.CrashDamage);
+                                                   rand, p.CrashDamage, p.EnemyNumber);
                         }
                         if (p.EnemyNumber == 4)
                         {
-                            return new Striker(p.Health, p.Score, EnemyWeapons,p.Droprate, rand, p.CrashDamage);
+                            return new Striker(p.Health, p.Score, EnemyWeapons, p.Droprate, rand, p.CrashDamage, p.EnemyNumber);
                         }
                         if (p.EnemyNumber == 5)
                         {
-                            return new Bomber(p.Health, p.Score, EnemyWeapons, p.Droprate, rand, p.CrashDamage);
+                            return new Bomber(p.Health, p.Score, EnemyWeapons, p.Droprate, rand, p.CrashDamage, p.EnemyNumber);
                         }
                     }
                 }

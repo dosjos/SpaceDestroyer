@@ -12,9 +12,9 @@ namespace SpaceDestroyer.Enemies
         private List<EnemyWeapons> EnemyWeapons;
 
 
-        public SmallBoss(int health, int score, 
-                         List<EnemyWeapons> EnemyWeapons, Random rand, int crash, List<Enemy> enemyList)
-            : base(health, score, EnemyWeapons, 100, rand, crash, true)
+        public SmallBoss(int health, int score,
+                         List<EnemyWeapons> EnemyWeapons, Random rand, int crash, List<Enemy> enemyList, int type)
+            : base(health, score, EnemyWeapons, 100, rand, crash, true, type)
         {
             Width = 200;
             Height = 200;

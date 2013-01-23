@@ -114,7 +114,7 @@ namespace SpaceDestroyer.Controllers
             Level = 1;
             Score = 0;
             Kills = 0;
-            AmmoCounter = new[] {50, 1000, 500, 2, 0, 5000};
+            AmmoCounter = new[] {150, 20, 5, 2, 0, 50};
             ChoosenWeapon = 1;
             DamageMulti = 1;
             ShootSpeed = ShootSpeeds.Bullet;

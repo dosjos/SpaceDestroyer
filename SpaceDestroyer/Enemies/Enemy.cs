@@ -32,11 +32,11 @@ namespace SpaceDestroyer.Enemies
            
         }
         
-        public Enemy(int health, int score, List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash, Boolean boss) 
+        public Enemy(int health, int score, List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash, Boolean boss, int type) 
         {
             Boss = boss;
             DropRate = dropRate;
-            
+            Type = type;
             CrashDamage = crash;
             Healt = health;
             MaxHealt = health;

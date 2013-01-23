@@ -18,13 +18,12 @@ namespace SpaceDestroyer.Enemies
         State Action = State.Moving;
 
         public Bomber(int health, int score,
-                       List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash)
-            : base(health, score, bulletList, dropRate, rand, crash, false)
+                       List<EnemyWeapons> bulletList, int dropRate, Random rand, int crash, int type)
+            : base(health, score, bulletList, dropRate, rand, crash, false, type)
         {
            
             Height = 74;
             Width = 150;
-            Type = 5;
             pos = new Vector2(X, Y);
             
             TargetX = rand.Next(-100, Game1.SWidth);
@@ -65,6 +64,8 @@ namespace SpaceDestroyer.Enemies
                     }
                 }
             }
+            if (Y < Game1.TopLimit) Y = Game1.TopLimit;
+            if (Y > Game1.BLimit + Height) Y = Game1.BLimit + Height;
         }
 
         public int TargetX { get; set; }

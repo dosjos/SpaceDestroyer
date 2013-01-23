@@ -9,19 +9,28 @@ namespace SpaceDestroyer.Enemies
     internal class Sentry : Enemy
     {
         public Sentry(int health, int score, List<EnemyWeapons> bulletList,
-                      int dropRate, Random rand, int crash)
-            : base(health, score, bulletList, dropRate, rand, crash, false)
+                      int dropRate, Random rand, int crash, int type)
+            : base(health, score, bulletList, dropRate, rand, crash, false, type)
         {
            
             Height = 40;
             Width = 57;
-            Type = 2;
         }
 
 
         public override void Calculate()
         {
-            X -= rand.Next(1, 4);
+            if (X > Game1.SWidth/2 - 100)
+            {
+                X -= rand.Next(4, 9);
+            }
+            else
+            {
+                X -= rand.Next(1, 4);
+            }
+            if (Y < Game1.TopLimit) Y = Game1.TopLimit;
+            if (Y > Game1.BLimit + Height) Y = Game1.BLimit + Height;
+
 
             if (GameController.Player.Y + GameController.Player.Height > Y && GameController.Player.Y < Y + Height)
             {
