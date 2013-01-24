@@ -10,7 +10,7 @@ namespace SpaceDestroyer.Screens
 {
     class GameEndedScreen : MenuScreen
     {
-        public GameEndedScreen(int score, int level, string menuTitle = "Game Over") : base(menuTitle)
+        public GameEndedScreen(int score, int level, string menuTitle) : base("Game Over")
         {
             GameController.HighScores = HighScoreController.ReadAllHighScores();
             var h = new HighScore()

@@ -44,7 +44,7 @@ namespace SpaceDestroyer.Enemies
             X = (int)pos.X;
             Y = (int)pos.Y;
             if (Y < Game1.TopLimit) Y = Game1.TopLimit;
-            if (Y > Game1.BLimit + Height) Y = Game1.BLimit + Height;
+            if (Y > Game1.BLimit - Height) Y = Game1.BLimit - Height;
             CalcHeading();
             Shoot();
 

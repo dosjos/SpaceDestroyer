@@ -27,9 +27,9 @@ namespace SpaceDestroyer.Enemies
             {
                 Y = Game1.TopLimit;
             }
-            if (Y + Height > Height + Game1.BLimit)
+            if (Y + Height > Game1.BLimit)
             {
-                Y = Height - Game1.BLimit;
+                Y =  Game1.BLimit - Height ;
             }
         }
     }

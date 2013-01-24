@@ -39,9 +39,11 @@ namespace SpaceDestroyer.Screens
 
             MenuEntries.Add(sfx);
 
+#if XBOX
+#else
             MenuEntries.Add(res);
             MenuEntries.Add(fullscreen);
-
+#endif
             MenuEntries.Add(Exit);
 
 
@@ -58,7 +60,7 @@ namespace SpaceDestroyer.Screens
             }
             if(resCounter == 0){
                 res.Text = resulo + "640×480";
-            }else if(resCount == 1){
+            }else if(resCounter == 1){
                 res.Text = resulo + "1280×720";
             }else{
                 res.Text = resulo + "1920×1080";

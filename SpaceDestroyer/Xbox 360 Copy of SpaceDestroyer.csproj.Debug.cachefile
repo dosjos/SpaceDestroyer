@@ -2,6 +2,7 @@ Content\Fonts\FloatingBig.xnb
 Content\Fonts\LargeNumbers.xnb
 Content\Fonts\LevelKillScore.xnb
 Content\Fonts\MediumNumbers.xnb
+Content\Fonts\SmalNumbers.xnb
 Content\Sound\spreader.xnb
 Content\Music\bg.xnb
 Content\Sound\Bullet.xnb
@@ -18,6 +19,10 @@ Content\Shapes\pflame.xnb
 Content\Enemies\EnemySentry.xnb
 Content\Enemies\StashCrate.xnb
 Content\Enemies\boss.xnb
+Content\Background\Background.xnb
+Content\Background\gradient.xnb
+Content\Enemies\Bomber.xnb
+Content\Enemies\EnemyStriker.xnb
 Content\Enemies\comet.xnb
 Content\Shapes\ani2.xnb
 Content\Shapes\ani3.xnb
@@ -31,14 +36,9 @@ Content\Shapes\crateUpgrade.xnb
 Content\Shapes\pflamel.xnb
 Content\Shapes\pflame2.xnb
 Content\Shapes\pflamel2.xnb
-Content\Background\Background.xnb
 Content\Shapes\blank.xnb
-Content\Background\gradient.xnb
 Content\Weapons\erocket.xnb
 Content\Weapons\rocket.xnb
-Content\Fonts\SmalNumbers.xnb
-Content\Enemies\Bomber.xnb
-Content\Enemies\EnemyStriker.xnb
 Content\Player\shield.xnb
 Content\Weapons\Bomb.xnb
 Content\Weapons\Swirl.xnb

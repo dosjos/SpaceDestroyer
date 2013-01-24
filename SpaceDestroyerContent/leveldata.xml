@@ -35,7 +35,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level> <!--1-->
+  </Level> <!--1, 1-->
   <Level>
     <LevelNumber>2</LevelNumber>
     <Enemies>
@@ -49,7 +49,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level> <!--2-->
+  </Level> <!--2, 1-->
   <Level>
     <LevelNumber>3</LevelNumber>
     <Enemies>
@@ -64,8 +64,7 @@
       </EnemyData>
     </Enemies>
     
-  </Level>
-  
+  </Level> <!--3, 1-->
   <Level>
     <LevelNumber>4</LevelNumber>
     <Enemies>
@@ -79,8 +78,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
-  
+  </Level> <!--4, 1-->
   <Level>
     <LevelNumber>5</LevelNumber>
     <Enemies>
@@ -95,8 +93,7 @@
       </EnemyData>
     </Enemies>
     
-  </Level>
-
+  </Level> <!--5, 1-->
   <Level>
     <LevelNumber>6</LevelNumber>
     <InfoText>
@@ -115,8 +112,7 @@
       </EnemyData>
     </Enemies>
    
-  </Level>
-
+  </Level> <!--6, 3-->
   <Level>
     <LevelNumber>7</LevelNumber>
     <Enemies>
@@ -131,8 +127,7 @@
       </EnemyData>
     </Enemies>
     
-  </Level>
-
+  </Level> <!--7, 3-->
   <Level>
     <LevelNumber>8</LevelNumber>
     <Enemies>
@@ -146,8 +141,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
-  
+  </Level> <!--8, 3-->
   <Level>
     <LevelNumber>9</LevelNumber>
     <Enemies>
@@ -161,8 +155,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
-  
+  </Level> <!--9, 3-->
   <Level>
     <LevelNumber>10</LevelNumber>
     <InfoText>
@@ -190,31 +183,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
-  
-  <Level>
-    <LevelNumber>11</LevelNumber>
-    <Enemies>
-      <EnemyData>
-        <Type>2</Type>
-        <Droprate>50</Droprate>
-        <Boss>false</Boss>
-        <Healt>10</Healt>
-        <Score>10</Score>
-        <Spawnrate>1000</Spawnrate>
-        <CrashDamage>5</CrashDamage>
-      </EnemyData>
-      <EnemyData>
-        <Type>3</Type>
-        <Droprate>100</Droprate>
-        <Boss>false</Boss>
-        <Healt>10</Healt>
-        <Score>10</Score>
-        <Spawnrate>1500</Spawnrate>
-        <CrashDamage>5</CrashDamage>
-      </EnemyData>
-    </Enemies>
-  </Level>
+  </Level> <!--10, 2 3-->
   <Level>
     <LevelNumber>11</LevelNumber>
     <InfoText>
@@ -232,7 +201,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
+  </Level> <!--11 Boss-->
   <Level>
     <LevelNumber>12</LevelNumber>
     <Enemies>
@@ -255,7 +224,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
+  </Level> <!--12, 2 3-->
   <Level>
     <LevelNumber>13</LevelNumber>
     <Enemies>
@@ -278,7 +247,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
+  </Level> <!--13, 2 3-->
   <Level>
     <LevelNumber>14</LevelNumber>
     <Enemies>
@@ -301,7 +270,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
+  </Level> <!--14, 2 3-->
   <Level>
     <LevelNumber>15</LevelNumber>
     <Enemies>
@@ -324,7 +293,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
+  </Level> <!--15, 2 3-->
   <Level>
     <LevelNumber>16</LevelNumber>
     <Enemies>
@@ -347,8 +316,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
-
+  </Level> <!--16, 3 4-->
   <Level>
     <LevelNumber>17</LevelNumber>
     <InfoText>
@@ -366,8 +334,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
-
+  </Level> <!--17 Boss-->
   <Level>
     <LevelNumber>18</LevelNumber>
     <Enemies>
@@ -390,8 +357,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
-
+  </Level> <!--18, 3 4-->
   <Level>
     <LevelNumber>19</LevelNumber>
     <Enemies>
@@ -414,8 +380,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
-
+  </Level> <!--19, 2 3-->
   <Level>
     <LevelNumber>20</LevelNumber>
     <Enemies>
@@ -438,7 +403,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>
+  </Level> <!--20, 2 5-->
 
   <Level>
     <LevelNumber>21</LevelNumber>
@@ -515,7 +480,7 @@
         <Boss>false</Boss>
         <Healt>50</Healt>
         <Score>50</Score>
-        <Spawnrate>7500</Spawnrate>
+        <Spawnrate>1500</Spawnrate>
         <CrashDamage>5</CrashDamage>
       </EnemyData>
       <EnemyData>
@@ -531,6 +496,127 @@
   </Level> <!--23-->
   <Level>
     <LevelNumber>24</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>1</Type>
+        <Droprate>0</Droprate>
+        <Boss>false</Boss>
+        <Healt>40</Healt>
+        <Score>40</Score>
+        <Spawnrate>250</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>2</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>50</Healt>
+        <Score>50</Score>
+        <Spawnrate>500</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>4</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>350</Healt>
+        <Score>350</Score>
+        <Spawnrate>1000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--24-->
+  <Level>
+    <LevelNumber>25</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>1</Type>
+        <Droprate>0</Droprate>
+        <Boss>false</Boss>
+        <Healt>40</Healt>
+        <Score>40</Score>
+        <Spawnrate>250</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>2</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>60</Healt>
+        <Score>50</Score>
+        <Spawnrate>7500</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>5</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>350</Healt>
+        <Score>400</Score>
+        <Spawnrate>7000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--25-->
+  <Level>
+    <LevelNumber>23</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>1</Type>
+        <Droprate>100</Droprate>
+        <Boss>true</Boss>
+        <Healt>4000</Healt>
+        <Score>4000</Score>
+        <Spawnrate>250</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level>  <!--26 Boss-->
+  <Level>
+    <LevelNumber>27</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>3</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>100</Healt>
+        <Score>100</Score>
+        <Spawnrate>250</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--27, 2-->
+  <Level>
+    <LevelNumber>28</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>3</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>100</Healt>
+        <Score>100</Score>
+        <Spawnrate>250</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--28, 2-->
+  <Level>
+    <LevelNumber>29</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>3</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>100</Healt>
+        <Score>100</Score>
+        <Spawnrate>250</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--29, 2-->
+  
+  <Level>
+    <LevelNumber>27</LevelNumber>
     <InfoText>
       <Info>damn dog, I think you made it to the end...</Info>
       <Info2>Now go play Borderlands</Info2>

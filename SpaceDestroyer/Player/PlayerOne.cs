@@ -26,8 +26,9 @@ namespace SpaceDestroyer.Player
             Y = (Game1.SHeight/2) - Height/2;
         }
 
-        internal void GoLeft(double speed = 1.0)
+        internal void GoLeft(double speed)
         {
+            
             X = X - (int)(10 * speed);
 
             if (X < 15)
@@ -36,8 +37,12 @@ namespace SpaceDestroyer.Player
             }
         }
 
-        internal void GoRight(double speed = 1.0)
+        internal void GoRight(double speed)
         {
+            if (speed == 0.0)
+            {
+                speed = 1.0;
+            }
             X = X + (int)(8 * speed) + boost;
             if (boost != 0)
             {
@@ -49,8 +54,12 @@ namespace SpaceDestroyer.Player
             }
         }
 
-        internal void GoUp(double speed = 1.0)
+        internal void GoUp(double speed)
         {
+            if (speed == 0.0)
+            {
+                speed = 1.0;
+            }
             Y = Y - (int)(11 * speed);
 
             if (Y < Game1.TopLimit)
@@ -59,8 +68,12 @@ namespace SpaceDestroyer.Player
             }
         }
 
-        internal void GoDown(double speed = 1.0)
+        internal void GoDown(double speed)
         {
+            if (speed == 0.0)
+            {
+                speed = 1.0;
+            }
             Y = Y + (int)(11 * speed);
 
             if (Y > Game1.BLimit - Height )

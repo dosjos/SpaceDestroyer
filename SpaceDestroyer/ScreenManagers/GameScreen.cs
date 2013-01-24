@@ -1,8 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region File Description
+//-----------------------------------------------------------------------------
+// GameScreen.cs
+//
+// Microsoft XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+//-----------------------------------------------------------------------------
+#endregion
+
+#region Using Statements
+using System;
 using Microsoft.Xna.Framework;
+using System.IO;
+using SpaceDestroyer.ScreenManagers;
+
+#endregion
 
 namespace SpaceDestroyer.ScreenManagers
 {
@@ -171,8 +182,14 @@ namespace SpaceDestroyer.ScreenManagers
         PlayerIndex? controllingPlayer;
 
 
+        /// <summary>
+        /// Gets the gestures the screen is interested in. Screens should be as specific
+        /// as possible with gestures to increase the accuracy of the gesture engine.
+        /// For example, most menus only need Tap or perhaps Tap and VerticalDrag to operate.
+        /// These gestures are handled by the ScreenManager when screens change and
+        /// all gestures are placed in the InputState passed to the HandleInput method.
+        /// </summary>
 
-       
 
         #endregion
 

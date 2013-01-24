@@ -64,6 +64,7 @@ namespace SpaceDestroyer.Controllers
             ship = content.Load<Texture2D>("Player/ship");
             Bullet = content.Load<Texture2D>("Weapons/Bullet");
             RocketTexture = content.Load<Texture2D>("Weapons/rocket");
+            SwirlTexture = content.Load<Texture2D>("Weapons/Swirl");
             Wall = content.Load<Texture2D>("Shapes/wall");
             Healt = content.Load<Texture2D>("Shapes/Heart");
             Boost = content.Load<Texture2D>("Shapes/pflame");
@@ -115,6 +116,7 @@ namespace SpaceDestroyer.Controllers
         public Texture2D CrateSpecial { get; set; }
         public Texture2D CrateHealth { get; set; }
         public Texture2D CargoCrateT { get; set; }
+        public Texture2D SwirlTexture { get; set; }
 
         public Texture2D RocketTexture { get; set; }
 
@@ -251,8 +253,12 @@ namespace SpaceDestroyer.Controllers
             return t;
         }
 
-        internal AnimatedExplosion AddExplosion(AnimatedExplosion animatedTexture, int s = 10)
+        internal AnimatedExplosion AddExplosion(AnimatedExplosion animatedTexture, int s)
         {
+            if (s == 0)
+            {
+                s = 10;
+            }
             Texture2D t = null;
             t = SelectExplosionTexture(t);
             animatedTexture.Load(t, s);
@@ -473,9 +479,24 @@ namespace SpaceDestroyer.Controllers
                          SpriteEffects.None, 
                          1.0f);
 
+                }else if (playerWeapon is Whirl && ((Whirl)playerWeapon).i == 0)
+                {
+
+                   
+                    spriteBatch.Draw(
+                        SwirlTexture,
+                        ((Whirl)playerWeapon).Position,
+                        null,
+                        Color.White,
+                        ((Whirl)playerWeapon).Angle,
+                         new Vector2(
+                            playerWeapon.RadiusX / 2, 
+                            playerWeapon.RadiusY / 2), 
+                        1.0f,
+                        SpriteEffects.None,
+                        1.0f);
+                    
                 }
-
-
                 else if (playerWeapon is Laser)
                 {
                     spriteBatch.Draw(dummyTexture,

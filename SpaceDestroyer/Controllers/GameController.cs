@@ -114,7 +114,7 @@ namespace SpaceDestroyer.Controllers
             Level = 1;
             Score = 0;
             Kills = 0;
-            AmmoCounter = new[] {150, 20, 5, 2, 0, 50};
+            AmmoCounter = new[] {150, 20, 5, 20, 0, 50};
             ChoosenWeapon = 1;
             DamageMulti = 1;
             ShootSpeed = ShootSpeeds.Bullet;
@@ -208,7 +208,7 @@ namespace SpaceDestroyer.Controllers
         {
             SoundController.PlayExplosion();
             var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 1.0f, 0.5f, e.X, e.Y, e.Width, e.Height, e.Speed);
-            var res = spriteController.AddExplosion(animatedExplosion);
+            var res = spriteController.AddExplosion(animatedExplosion, 10);
             Explosions.Add(res);
         }
 
@@ -222,7 +222,7 @@ namespace SpaceDestroyer.Controllers
                     e.Y < Player.Y + Player.Height)
                 {
                     var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 0.5f, 1.0f, e.X, e.Y, 15, 15, 5);
-                    var res = spriteController.AddExplosion(animatedExplosion);
+                    var res = spriteController.AddExplosion(animatedExplosion, 10);
                     Explosions.Add(res);
                     int dmg = e.Power;
                      FloatingTexts.Add(new DamageText(Player.X + Player.Width / 2, Player.Y, dmg));
@@ -267,7 +267,7 @@ namespace SpaceDestroyer.Controllers
                     if (((EBomb) EnemyBullets[i]).destruct <= 0)
                     {
                         var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 0.5f, 1.0f, EnemyBullets[i].X-10, EnemyBullets[i].Y-10, 40, 40, 0);
-                        var res = spriteController.AddExplosion(animatedExplosion);
+                        var res = spriteController.AddExplosion(animatedExplosion, 10);
                         Explosions.Add(res);
                         EnemyBullets.RemoveAt((i));
                         i--;
@@ -424,6 +424,86 @@ namespace SpaceDestroyer.Controllers
                         }
                     }
 
+                    if (Ammo == Ammos.Whirl)
+                    {
+                        int xx = 0;
+        int yy = 0;
+        int t = 0;
+                        for (int i = 0; i < 60; i++)
+                        {
+                            if (t == 0)
+                            {
+                                xx = 5;
+                                yy = 0;
+                            }
+                            if (t == 1)
+                            {
+                                xx = 3;
+                                yy = -2;
+                            }
+                            if (t == 2)
+                            {
+                                xx = 2;
+                                yy = -3;
+                            }
+                            if (t == 3)
+                            {
+                                xx = 0;
+                                yy = -5;
+                            }
+                            if (t == 4)
+                            {
+                                xx = -2;
+                                yy = -3;
+                            }
+                            if (t == 5)
+                            {
+                                xx = -3;
+                                yy = -2;
+                            }
+                            if (t == 6)
+                            {
+                                xx = -5;
+                                yy = 0;
+                            }
+                            if (t == 7)
+                            {
+                                xx = -3;
+                                yy = 2;
+                            }
+                            if (t == 8)
+                            {
+                                xx = -2;
+                                yy = 3;
+                            }
+                            if (t == 9)
+                            {
+                                xx = 0;
+                                yy = 5;
+                            }
+                            if (t == 10)
+                            {
+                                xx = 2;
+                                yy = 3;
+                            }
+                            if (t == 11)
+                            {
+                                xx = 3;
+                                yy = 2;
+                            }
+
+                            bulletController.AddShoot(new Whirl(10*DamageMulti, xx, yy, i));
+                            t++;
+                            if (t == 12)
+                            {
+                                t = 0;
+                            }
+
+                        }
+
+                    }
+
+
                     if (Ammo == Ammos.Laser)
                     {
                         Enemy tmp = FireLaser();
@@ -435,7 +515,7 @@ namespace SpaceDestroyer.Controllers
                             tmp.Healt -= 3 * DamageMulti;
                             FloatingTexts.Add(new DamageText(tmp.X + tmp.Width/2, tmp.Y, 3* DamageMulti));
                             var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 0.5f, 1.0f, tmp.X, Player.Y+(Player.Height/2)-7, 15, 15, 0);
-                            var res = spriteController.AddExplosion(animatedExplosion);
+                            var res = spriteController.AddExplosion(animatedExplosion, 10);
                             Explosions.Add(res);
                         }
                         else
@@ -616,7 +696,7 @@ namespace SpaceDestroyer.Controllers
                     }
                     if(expl){
                         var animatedExplosion = new AnimatedExplosion(Vector2.Zero, 0.0f, 0.5f, 1.0f, pw.X, pw.Y, 15, 15, 0);
-                        var res = spriteController.AddExplosion(animatedExplosion);
+                        var res = spriteController.AddExplosion(animatedExplosion, 10);
                         Explosions.Add(res);
                     }
                 }

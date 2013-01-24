@@ -65,7 +65,7 @@ namespace SpaceDestroyer.Enemies
                 }
             }
             if (Y < Game1.TopLimit) Y = Game1.TopLimit;
-            if (Y > Game1.BLimit + Height) Y = Game1.BLimit + Height;
+            if (Y > Game1.BLimit - Height) Y = Game1.BLimit - Height;
         }
 
         public int TargetX { get; set; }

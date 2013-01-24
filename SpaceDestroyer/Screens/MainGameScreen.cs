@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
@@ -18,6 +19,7 @@ namespace SpaceDestroyer.Screens
         private GameController gameController;
         float pauseAlpha;
         private KeyboardState oldState;
+        private GamePadState oldPadState;
 
         private new bool IsActive
         {
@@ -25,7 +27,6 @@ namespace SpaceDestroyer.Screens
             {
                 return base.IsActive;
             }
-            set{}
         }
 
         public MainGameScreen()
@@ -71,33 +72,36 @@ namespace SpaceDestroyer.Screens
             }
 
             if (keyboardState.IsKeyDown(Keys.Left))
-                GameController.Player.GoLeft();
+                GameController.Player.GoLeft(1.0);
 
             if (keyboardState.IsKeyDown(Keys.Right))
-                GameController.Player.GoRight();
+                GameController.Player.GoRight(1.0);
 
             if (keyboardState.IsKeyDown(Keys.Up))
-                GameController.Player.GoUp();
+                GameController.Player.GoUp(1.0);
 
             if (keyboardState.IsKeyDown(Keys.Down))
-                GameController.Player.GoDown();
+                GameController.Player.GoDown(1.0);
 
-             if (keyboardState.IsKeyDown(Keys.Space))
+             if (keyboardState.IsKeyDown(Keys.Space) || gamePadState.Triggers.Right > 0.1)
                  gameController.AddBullet();
 
-            if (keyboardState.IsKeyDown(Keys.Q) && !oldState.IsKeyDown(Keys.Q))
+            if (keyboardState.IsKeyDown(Keys.Q) && !oldState.IsKeyDown(Keys.Q)
+                || gamePadState.Buttons.LeftShoulder == ButtonState.Pressed && oldPadState.Buttons.LeftShoulder != ButtonState.Pressed)
             {
                 gameController.WeaponDown();
             }
-            if (keyboardState.IsKeyDown(Keys.E) && !oldState.IsKeyDown(Keys.E))
+            if (keyboardState.IsKeyDown(Keys.E) && !oldState.IsKeyDown(Keys.E)
+                || gamePadState.Buttons.RightShoulder == ButtonState.Pressed && oldPadState.Buttons.RightShoulder != ButtonState.Pressed)
             {
                 gameController.WeaponUp();
             }
-            if (keyboardState.IsKeyDown(Keys.LeftControl) && !oldState.IsKeyDown(Keys.LeftControl))
+            if (keyboardState.IsKeyDown(Keys.LeftControl) && !oldState.IsKeyDown(Keys.LeftControl)
+                || gamePadState.Buttons.Y == ButtonState.Pressed && oldPadState.Buttons.Y != ButtonState.Pressed)
             {
                 GameController.Player.ShieldOn = !GameController.Player.ShieldOn;
             }
-            if (keyboardState.IsKeyDown(Keys.D1)) gameController.SetChoosenWeapon(1);
+            if (keyboardState.IsKeyDown(Keys.D1)) gameController.SetChoosenWeapon(1);  
             if (keyboardState.IsKeyDown(Keys.D2)) gameController.SetChoosenWeapon(2);
             if (keyboardState.IsKeyDown(Keys.D3)) gameController.SetChoosenWeapon(3);
             if (keyboardState.IsKeyDown(Keys.D4)) gameController.SetChoosenWeapon(4);
@@ -123,35 +127,39 @@ namespace SpaceDestroyer.Screens
 
 
             Vector2 thumbstick = gamePadState.ThumbSticks.Left;
-            if (thumbstick.X < 0.1)
+            if (thumbstick.X < -0.1)
             {
-                GameController.Player.GoLeft(thumbstick.X);
+                GameController.Player.GoLeft(1.0);//thumbstick.X);
             }
-            else if (thumbstick.X > 0.1)
+             if (thumbstick.X > 0.1)
             {
-                GameController.Player.GoRight(thumbstick.X);
+                GameController.Player.GoRight(1.0);//thumbstick.X);
             }
-            if (thumbstick.Y < 0.1)
+            if (thumbstick.Y < -0.1)
             {
-                GameController.Player.GoDown(thumbstick.Y);
+                GameController.Player.GoDown(1.0);//thumbstick.Y);   
             }
-            else if (thumbstick.Y > 0.1)
+             if (thumbstick.Y > 0.1)
             {
-                GameController.Player.GoUp(thumbstick.Y);
+                GameController.Player.GoUp(1.0);//thumbstick.Y);
             }
 
+        //     System.Diagnostics.Debug.WriteLine(thumbstick.X);
             oldState = keyboardState;
+            oldPadState = gamePadState;
             return true;
         }
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
-            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+            base.Update(gameTime, otherScreenHasFocus, false);
+
+            // Gradually fade in or out depending on whether we are covered by the pause screen.
             if (coveredByOtherScreen)
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
-            
+
             
             if (IsActive && !paused)
             {
@@ -184,7 +192,7 @@ namespace SpaceDestroyer.Screens
 
                 if (GameController.Player.Healt <= 0 || !t)
                 {
-                    LoadingScreen.Load(ScreenManager, true, ControllingPlayer, new BackgroundScreen(), new GameEndedScreen(gameController.Score, gameController.Level));
+                    LoadingScreen.Load(ScreenManager, true, ControllingPlayer, new BackgroundScreen(), new GameEndedScreen(gameController.Score, gameController.Level, "Game Over"));
                 }
 
             }
@@ -199,21 +207,21 @@ namespace SpaceDestroyer.Screens
         public override void Draw(GameTime gameTime)
         {
 
-           // base.Draw(gameTime);
+            base.Draw(gameTime);
             spriteController.GetReady();
             
             spriteController.DrawBackGroundElements();
             spriteController.DrawFramesAndStats();
             spriteController.DrawFloatingTexts();
-            spriteController.DrawPlayer();
+            
 
             spriteController.DrawEnemyBullets();
             spriteController.DrawEnemies();
             spriteController.DrawLoot();
             spriteController.DrawExplosions();
             spriteController.DrawBullets();
-            
-            
+
+            spriteController.DrawPlayer();
 
             spriteController.FinnishDrawing();
             // If the game is transitioning on or off, fade it out to black.

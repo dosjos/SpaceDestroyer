@@ -101,10 +101,10 @@ namespace SpaceDestroyer
         protected override void Initialize()
         {
 #if XBOX
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
-            graphics.IsFullScreen = true;
-            graphics.ApplyChanges();
+            _graphics.PreferredBackBufferWidth = 1920;// 1280;
+            _graphics.PreferredBackBufferHeight = 1080;// 720;
+            _graphics.IsFullScreen = true;
+            _graphics.ApplyChanges();
 #else
             _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;

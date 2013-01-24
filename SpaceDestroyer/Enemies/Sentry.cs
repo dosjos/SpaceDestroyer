@@ -29,7 +29,7 @@ namespace SpaceDestroyer.Enemies
                 X -= rand.Next(1, 4);
             }
             if (Y < Game1.TopLimit) Y = Game1.TopLimit;
-            if (Y > Game1.BLimit + Height) Y = Game1.BLimit + Height;
+            if (Y > Game1.BLimit - Height) Y = Game1.BLimit - Height;
 
 
             if (GameController.Player.Y + GameController.Player.Height > Y && GameController.Player.Y < Y + Height)

@@ -34,6 +34,9 @@ namespace SpaceDestroyer.Enemies
 
                 Y += rand.Next(-2, 3);
             }
+            if(Y < Game1.TopLimit) Y = Game1.TopLimit;
+            if (Y > Game1.BLimit - Height) Y = Game1.BLimit - Height;
+
         }
     }
 }

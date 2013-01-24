@@ -92,6 +92,7 @@
     <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Input.Touch, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Xna.Framework.Xact, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
@@ -185,6 +186,7 @@
     <Compile Include="Weapons\Bullet.cs" />
     <Compile Include="Weapons\Rocket.cs" />
     <Compile Include="Weapons\Spreader.cs" />
+    <Compile Include="Weapons\Whirl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
