@@ -33,7 +33,7 @@ namespace SpaceDestroyer.Enemies
             if (Math.Abs(X - TargetX) < 10 && Math.Abs(Y - TargetY) < 10)
             {
                 TargetX = rand.Next(-100, Game1.SWidth);
-                TargetY = rand.Next(Game1.TopLimit, Game1.BLimit + Height);
+                TargetY = rand.Next(Game1.TopLimit, Game1.BLimit - Height);
                 dest = new Vector2(TargetX, TargetY);
             }
 
