@@ -31,7 +31,7 @@
         <Boss>false</Boss>
         <Healt>5</Healt>
         <Score>2</Score>
-        <Spawnrate>2000</Spawnrate>
+        <Spawnrate>1500</Spawnrate>
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
@@ -45,7 +45,7 @@
         <Boss>false</Boss>
         <Healt>5</Healt>
         <Score>3</Score>
-        <Spawnrate>1500</Spawnrate>
+        <Spawnrate>1100</Spawnrate>
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
@@ -59,7 +59,7 @@
         <Boss>false</Boss>
         <Healt>5</Healt>
         <Score>4</Score>
-        <Spawnrate>1000</Spawnrate>
+        <Spawnrate>800</Spawnrate>
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
@@ -585,7 +585,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level> <!--27, 2-->
+  </Level> <!--27, 3-->
   <Level>
     <LevelNumber>28</LevelNumber>
     <Enemies>
@@ -599,12 +599,12 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level> <!--28, 2-->
+  </Level> <!--28, 3-->
   <Level>
     <LevelNumber>29</LevelNumber>
     <Enemies>
       <EnemyData>
-        <Type>3</Type>
+        <Type>2</Type>
         <Droprate>100</Droprate>
         <Boss>false</Boss>
         <Healt>100</Healt>
@@ -616,10 +616,173 @@
   </Level> <!--29, 2-->
   
   <Level>
-    <LevelNumber>27</LevelNumber>
-    <InfoText>
-      <Info>damn dog, I think you made it to the end...</Info>
-      <Info2>Now go play Borderlands</Info2>
-    </InfoText>
-  </Level>
+    <LevelNumber>30</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>2</Type>
+        <Droprate>60</Droprate>
+        <Boss>false</Boss>
+        <Healt>40</Healt>
+        <Score>50</Score>
+        <Spawnrate>1500</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>4</Type>
+        <Droprate>60</Droprate>
+        <Boss>false</Boss>
+        <Healt>60</Healt>
+        <Score>60</Score>
+        <Spawnrate>1200</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>3</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>15</Healt>
+        <Score>10</Score>
+        <Spawnrate>3000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--30, 2 3 4-->
+  
+  <Level>
+    <LevelNumber>31</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>2</Type>
+        <Droprate>60</Droprate>
+        <Boss>false</Boss>
+        <Healt>40</Healt>
+        <Score>50</Score>
+        <Spawnrate>1500</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>4</Type>
+        <Droprate>60</Droprate>
+        <Boss>false</Boss>
+        <Healt>60</Healt>
+        <Score>60</Score>
+        <Spawnrate>1200</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>3</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>15</Healt>
+        <Score>10</Score>
+        <Spawnrate>3000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--31, 2 3 4-->
+  <Level>
+    <LevelNumber>32</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>5</Type>
+        <Droprate>60</Droprate>
+        <Boss>false</Boss>
+        <Healt>450</Healt>
+        <Score>450</Score>
+        <Spawnrate>1500</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>2</Type>
+        <Droprate>60</Droprate>
+        <Boss>false</Boss>
+        <Healt>40</Healt>
+        <Score>50</Score>
+        <Spawnrate>1500</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>4</Type>
+        <Droprate>60</Droprate>
+        <Boss>false</Boss>
+        <Healt>60</Healt>
+        <Score>60</Score>
+        <Spawnrate>1200</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>3</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>15</Healt>
+        <Score>10</Score>
+        <Spawnrate>3000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--32, 2 3 4 5-->
+  <Level>
+    <LevelNumber>33</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>5</Type>
+        <Droprate>60</Droprate>
+        <Boss>false</Boss>
+        <Healt>450</Healt>
+        <Score>450</Score>
+        <Spawnrate>1500</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>2</Type>
+        <Droprate>60</Droprate>
+        <Boss>false</Boss>
+        <Healt>40</Healt>
+        <Score>50</Score>
+        <Spawnrate>1500</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>4</Type>
+        <Droprate>60</Droprate>
+        <Boss>false</Boss>
+        <Healt>60</Healt>
+        <Score>60</Score>
+        <Spawnrate>1200</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>3</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>15</Healt>
+        <Score>10</Score>
+        <Spawnrate>3000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    <EnemyData>
+        <Type>1</Type>
+        <Droprate>0</Droprate>
+        <Boss>false</Boss>
+        <Healt>15</Healt>
+        <Score>10</Score>
+        <Spawnrate>1000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--33, 1 2 3 4 5-->
+  <Level>
+    <LevelNumber>34</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>1</Type>
+        <Droprate>100</Droprate>
+        <Boss>true</Boss>
+        <Healt>8000</Healt>
+        <Score>6000</Score>
+        <Spawnrate>250</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level>  <!--34 Boss-->
 </XnaContent>

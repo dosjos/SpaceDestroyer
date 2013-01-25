@@ -20,7 +20,7 @@ namespace SpaceDestroyer.Screens
         float pauseAlpha;
         private KeyboardState oldState;
         private GamePadState oldPadState;
-
+        private DateTime start, startU, stopU;
         private new bool IsActive
         {
             get
@@ -42,6 +42,8 @@ namespace SpaceDestroyer.Screens
             gameController.RegisterSpriteController(spriteController);
             GameController.Ammo = GameController.Ammos.Bullet;
             gameController.Reset();
+
+            //TODO hvis xbox last opp en ovenforliggende skjer med kun et alternativ, nemlig ready. Legg ved bilde av kontrollerne
             SoundController.StartBackgroundMusic();
             base.LoadContent();
         }
@@ -152,32 +154,36 @@ namespace SpaceDestroyer.Screens
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
-            base.Update(gameTime, otherScreenHasFocus, false);
+            
 
             // Gradually fade in or out depending on whether we are covered by the pause screen.
             if (coveredByOtherScreen)
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
-
+           
             
             if (IsActive && !paused)
             {
+                startU = DateTime.Now;
                 SoundController.ResumeBackgroundMusic();
+                stopU = DateTime.Now;
                 gameController.CalculateBackgroundElements();
-
-                var t = gameController.CheckAndUpdateLevel();
                 
+                var t = gameController.CheckAndUpdateLevel();
+                //
 
                 gameController.CalculateTexts(gameTime);
                 gameController.RemoveTexts();
-
+                //
                 gameController.AddEnemys();
                 gameController.CalculateEnemiesMovement();
                 gameController.RemoveEnemies();
                 gameController.CalculateLootMovement();
                 gameController.CalculateLootCollision();
 
+                
+                //
                 gameController.CalculateEnemyFire();
 
                 gameController.RemoveEnemyBullets();
@@ -189,7 +195,7 @@ namespace SpaceDestroyer.Screens
 
                 gameController.CalculateColisions();
                 gameController.CalculateExplosions((float) gameTime.ElapsedGameTime.TotalSeconds);
-
+                
                 if (GameController.Player.Healt <= 0 || !t)
                 {
                     LoadingScreen.Load(ScreenManager, true, ControllingPlayer, new BackgroundScreen(), new GameEndedScreen(gameController.Score, gameController.Level, "Game Over"));
@@ -200,16 +206,20 @@ namespace SpaceDestroyer.Screens
             {
                 SoundController.PauseBackground();
             }
+            
+            base.Update(gameTime, otherScreenHasFocus, false);
 
         }
 
 
         public override void Draw(GameTime gameTime)
         {
-
+            start = DateTime.Now;
             base.Draw(gameTime);
             spriteController.GetReady();
+
             
+
             spriteController.DrawBackGroundElements();
             spriteController.DrawFramesAndStats();
             spriteController.DrawFloatingTexts();
@@ -223,7 +233,7 @@ namespace SpaceDestroyer.Screens
 
             spriteController.DrawPlayer();
 
-            spriteController.FinnishDrawing();
+            spriteController.FinnishDrawing(stopU-startU);
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
             {

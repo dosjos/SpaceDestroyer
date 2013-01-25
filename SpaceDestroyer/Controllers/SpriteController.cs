@@ -513,8 +513,11 @@ namespace SpaceDestroyer.Controllers
         #endregion
 
         #region StartFinnish
-        internal void FinnishDrawing()
+        internal void FinnishDrawing(TimeSpan res)
         {
+            spriteBatch.DrawString(LargeNumber, "" + res.TotalMilliseconds, new Vector2(200, 250), Color.White);
+            
+            spriteBatch.DrawString(LargeNumber, "" + (GC.GetTotalMemory(false) / 1000) , new Vector2(200, 200), Color.White);
             spriteBatch.End();
         }
 

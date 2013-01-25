@@ -338,11 +338,11 @@ namespace SpaceDestroyer.Controllers
             if (type == 0) amount = r.Next(20, 70);
             else if (type == 1) amount = r.Next(100, 300);
             else if (type == 2) amount = r.Next(20, 70);
-            else if (type == 3) amount = r.Next(20, 110);
-            else if (type == 4) amount = r.Next(40, 150);
-            else if (type == 5) amount = r.Next(20, 70);
-            else if (type == 6) amount = r.Next(20, 40);
-            else if (type == 7) amount = r.Next(1, 10);
+            else if (type == 3) amount = r.Next(50, 200);
+            else if (type == 4) amount = r.Next(50, 100);
+            else if (type == 5) amount = r.Next(10, 40);
+            else if (type == 6) amount = r.Next(10, 30);
+            else if (type == 7) amount = r.Next(1, 5);
             else if (type == 8) amount = r.Next(20, 500);
             return amount;
         }

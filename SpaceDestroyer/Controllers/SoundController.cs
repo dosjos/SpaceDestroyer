@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
@@ -21,12 +22,15 @@ namespace SpaceDestroyer.Controllers
         {
             MediaPlayer.Play(_bgsong);
             MediaPlayer.IsRepeating = true;
+            while (MediaPlayer.State != MediaState.Playing)
+            {
+                
+            }
         }
 
         internal static void ResumeBackgroundMusic()
         {
             if (Content == null) return;
-           
             if (MediaPlayer.State == MediaState.Playing) return;
 
             if (MediaPlayer.State == MediaState.Paused)
@@ -37,7 +41,6 @@ namespace SpaceDestroyer.Controllers
             {
                 MediaPlayer.Play(_bgsong);
                 MediaPlayer.IsRepeating = true;
-                
             }
         }
 
@@ -46,7 +49,7 @@ namespace SpaceDestroyer.Controllers
             MediaPlayer.Volume = level/10.0f;
         }
 
-        internal static void SetContetn(ContentManager Contents)
+        internal static void SetContent(ContentManager Contents)
         {
             Content = Contents;
             _bgsong = Content.Load<Song>("Music/bg");

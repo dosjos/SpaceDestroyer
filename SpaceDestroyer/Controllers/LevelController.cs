@@ -119,7 +119,13 @@ namespace SpaceDestroyer.Controllers
 
         internal bool HasText()
         {
-            return (levels[Level - 1] != null && levels[Level - 1].InfoTexts != null && levels[Level - 1].InfoTexts.Count > 0 && !levels[Level - 1].InfoTexts[0].Seen) ? true : false;
+            Boolean b;
+            try
+            {
+                return (levels[Level - 1] != null && levels[Level - 1].InfoTexts != null && levels[Level - 1].InfoTexts.Count > 0 && !levels[Level - 1].InfoTexts[0].Seen) ? true : false;
+
+            }catch(Exception e){}
+            return false;
         }
 
         internal bool TextIsSeen()
