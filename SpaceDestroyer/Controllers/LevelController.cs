@@ -15,7 +15,7 @@ namespace SpaceDestroyer.Controllers
         // private readonly PlayerOne Player;
         private readonly List<Enemy> _enemyList;
         private readonly Random rand;
-        private DateTime LastAdded;
+      //  private DateTime LastAdded;
         public List<Level> levels;
 
         public LevelController(List<EnemyWeapons> enemyWeapons, List<Enemy> enemyList)
@@ -81,10 +81,9 @@ namespace SpaceDestroyer.Controllers
                 }
                 else
                 {
-                    var lastSpawn = (long) (DateTime.Now - LastAdded).TotalMilliseconds;
-                    if (p.LastSpawn + p.SpawnRate < lastSpawn)
+                    if ((DateTime.Now - p.LastSpawn).TotalMilliseconds > p.SpawnRate)
                     {
-                        p.LastSpawn = lastSpawn;
+                        p.LastSpawn = DateTime.Now;
                         if (p.EnemyNumber == 1)
                         {
                             return new Comet(p.Health, p.Score, p.Droprate, rand,
@@ -110,6 +109,10 @@ namespace SpaceDestroyer.Controllers
                         if (p.EnemyNumber == 5)
                         {
                             return new Bomber(p.Health, p.Score, EnemyWeapons, p.Droprate, rand, p.CrashDamage, p.EnemyNumber);
+                        }
+                        if (p.EnemyNumber == 6)
+                        {
+                            return new ChargingSentry(p.Health, p.Score, EnemyWeapons, p.Droprate, rand, p.CrashDamage, p.EnemyNumber);
                         }
                     }
                 }

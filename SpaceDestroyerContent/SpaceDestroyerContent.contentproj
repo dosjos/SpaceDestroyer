@@ -191,6 +191,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Enemies\EnemySentryReversed.png">
+      <Name>EnemySentryReversed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Content Include="leveldata.xml">
       <Name>leveldata</Name>
       <Importer>XmlImporter</Importer>

@@ -141,6 +141,7 @@
     <Compile Include="Controllers\SoundController.cs" />
     <Compile Include="Controllers\SpriteController.cs" />
     <Compile Include="Enemies\Bomber.cs" />
+    <Compile Include="Enemies\ChargingSentry.cs" />
     <Compile Include="Enemies\Comet.cs" />
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\CargoCrate.cs" />

@@ -81,6 +81,7 @@ namespace SpaceDestroyer.Controllers
 
             CargoCrateT = content.Load<Texture2D>("Enemies/StashCrate");
             EnemySentry = content.Load<Texture2D>("Enemies/EnemySentry");
+            EnemySentryReversed = content.Load<Texture2D>("Enemies/EnemySentryReversed");
             EnemyComet = content.Load<Texture2D>("Enemies/comet");
             EnemyStriker = content.Load<Texture2D>("Enemies/EnemyStriker");
             EnemyBomber = content.Load<Texture2D>("Enemies/Bomber");
@@ -107,6 +108,7 @@ namespace SpaceDestroyer.Controllers
         public Texture2D Shield { get; set; }
         public Texture2D Boost { get; set; }
         public Texture2D EnemySentry { get; set; }
+        public Texture2D EnemySentryReversed { get; set; }
         public Texture2D EnemyComet { get; set; }
         public Texture2D EnemyStriker { get; set; }
         public Texture2D EnemyBomber { get; set; }
@@ -711,6 +713,34 @@ namespace SpaceDestroyer.Controllers
             {
                 spriteBatch.Draw(EnemyBomber, new Rectangle(enemy.X, enemy.Y, enemy.Width, enemy.Height),
                                  Color.White);
+            }
+
+            if (enemy.Type == 6)
+            {
+                if (((ChargingSentry) enemy).Angle == 0)
+                {
+                    spriteBatch.Draw(EnemySentry, new Rectangle(enemy.X, enemy.Y, enemy.Width, enemy.Height),
+                                 Color.White);
+                }
+                else
+                {
+
+                    Vector2 realPos = new Vector2(((ChargingSentry) enemy).pos.X + enemy.Width/2,
+                                                  ((ChargingSentry) enemy).pos.Y + enemy.Height/2);
+                    spriteBatch.Draw(
+                        EnemySentryReversed,
+                        realPos,
+                        null,
+                        Color.White,
+                        ((ChargingSentry) enemy).Angle,
+
+                        new Vector2(
+                            enemy.Width/2,
+                            enemy.Height/2),
+                        1.0f,
+                        SpriteEffects.None,
+                        1.0f);
+                }
             }
 
         }

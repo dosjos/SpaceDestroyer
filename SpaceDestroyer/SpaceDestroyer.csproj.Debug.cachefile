@@ -42,6 +42,7 @@ Content\Enemies\EnemyStriker.xnb
 Content\Player\shield.xnb
 Content\Weapons\Bomb.xnb
 Content\Weapons\Swirl.xnb
+Content\Enemies\EnemySentryReversed.xnb
 Content\Sound\spreader.wma
 Content\Music\bg.wma
 Content\leveldata.xml

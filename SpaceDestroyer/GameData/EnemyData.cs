@@ -10,7 +10,7 @@ namespace SpaceDestroyer.GameData
         public int Droprate { get; set; }
         public int SpawnRate { get; set; }
         public Boolean Boss { get; set; }
-        public long LastSpawn { get; set; }
+        public DateTime LastSpawn { get; set; }
         public int CrashDamage { get; set; }
     }
 }

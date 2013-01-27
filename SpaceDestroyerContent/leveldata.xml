@@ -6,9 +6,10 @@
     Type 3 == Cargo Container
     Type 4 == Striker //Raske, krever litt å treffe
     Type 5 == Bomber //Bør ha mye helse
-    Type 6 == Crate with Charge
-    Type 7 == Striker med skjold
-    Type 8 == Frigat // har laser, og raketter
+    Type 6 == SentryShip som prøver å ramme deg
+    Type 7 == Crate with Charge
+    Type 8 == Striker med skjold
+    Type 9 == Frigat // har laser, og raketter
     
     Boss
     Type 1 == SmallBoss
@@ -404,7 +405,6 @@
       </EnemyData>
     </Enemies>
   </Level> <!--20, 2 5-->
-
   <Level>
     <LevelNumber>21</LevelNumber>
     <Enemies>
@@ -428,7 +428,6 @@
       </EnemyData>
     </Enemies>
   </Level>
-
   <Level>
     <LevelNumber>22</LevelNumber>
     <Enemies>
@@ -461,7 +460,6 @@
       </EnemyData>
     </Enemies>
   </Level>
-
   <Level>
     <LevelNumber>23</LevelNumber>
     <Enemies>
@@ -493,7 +491,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level> <!--23-->
+  </Level> <!--23 1 2 5-->
   <Level>
     <LevelNumber>24</LevelNumber>
     <Enemies>
@@ -525,7 +523,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level> <!--24-->
+  </Level> <!--24 1 2 4-->
   <Level>
     <LevelNumber>25</LevelNumber>
     <Enemies>
@@ -557,7 +555,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level> <!--25-->
+  </Level> <!--25 1 2 5-->
   <Level>
     <LevelNumber>23</LevelNumber>
     <Enemies>
@@ -614,7 +612,6 @@
       </EnemyData>
     </Enemies>
   </Level> <!--29, 2-->
-  
   <Level>
     <LevelNumber>30</LevelNumber>
     <Enemies>
@@ -647,7 +644,6 @@
       </EnemyData>
     </Enemies>
   </Level> <!--30, 2 3 4-->
-  
   <Level>
     <LevelNumber>31</LevelNumber>
     <Enemies>
@@ -784,5 +780,88 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level>  <!--34 Boss-->
+  </Level> <!--34 Boss-->
+  <Level>
+    <LevelNumber>35</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>6</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>80</Healt>
+        <Score>80</Score>
+        <Spawnrate>1300</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--35, 6-->
+  <Level>
+    <LevelNumber>36</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>6</Type>
+        <Droprate>100</Droprate>
+        <Boss>false</Boss>
+        <Healt>90</Healt>
+        <Score>80</Score>
+        <Spawnrate>1000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--36, 3-->
+  <Level>
+    <LevelNumber>37</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>6</Type>
+        <Droprate>50</Droprate>
+        <Boss>false</Boss>
+        <Healt>90</Healt>
+        <Score>80</Score>
+        <Spawnrate>1000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>4</Type>
+        <Droprate>50</Droprate>
+        <Boss>false</Boss>
+        <Healt>100</Healt>
+        <Score>100</Score>
+        <Spawnrate>1000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--37, 3 4-->
+  <Level>
+    <LevelNumber>38</LevelNumber>
+    <Enemies>
+      <EnemyData>
+        <Type>6</Type>
+        <Droprate>50</Droprate>
+        <Boss>false</Boss>
+        <Healt>90</Healt>
+        <Score>80</Score>
+        <Spawnrate>1000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>4</Type>
+        <Droprate>50</Droprate>
+        <Boss>false</Boss>
+        <Healt>100</Healt>
+        <Score>100</Score>
+        <Spawnrate>1000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <EnemyData>
+        <Type>1</Type>
+        <Droprate>0</Droprate>
+        <Boss>false</Boss>
+        <Healt>100</Healt>
+        <Score>100</Score>
+        <Spawnrate>1000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+    </Enemies>
+  </Level> <!--38, 1 3 4-->
 </XnaContent>
