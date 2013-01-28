@@ -172,10 +172,11 @@ namespace SpaceDestroyer.Screens
                 
                 var t = gameController.CheckAndUpdateLevel();
                 //
-
+                gameController.CalculateEnemyFireHit();
                 gameController.CalculateTexts(gameTime);
                 gameController.RemoveTexts();
                 //
+                gameController.RemoveEnemyBullets();
                 gameController.AddEnemys();
                 gameController.CalculateEnemiesMovement();
                 gameController.RemoveEnemies();
@@ -186,12 +187,12 @@ namespace SpaceDestroyer.Screens
                 //
                 gameController.CalculateEnemyFire();
 
-                gameController.RemoveEnemyBullets();
+                
                 gameController.RemoveBullets();
                 gameController.CalculateBullets();
                 gameController.CalculateBulletsHits();
 
-                gameController.CalculateEnemyFireHit();
+                
 
                 gameController.CalculateColisions();
                 gameController.CalculateExplosions((float) gameTime.ElapsedGameTime.TotalSeconds);

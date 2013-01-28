@@ -65,6 +65,7 @@ namespace SpaceDestroyer.Controllers
             Bullet = content.Load<Texture2D>("Weapons/Bullet");
             RocketTexture = content.Load<Texture2D>("Weapons/rocket");
             SwirlTexture = content.Load<Texture2D>("Weapons/Swirl");
+            EnemyRocket = content.Load<Texture2D>("Weapons/erocket");
             Wall = content.Load<Texture2D>("Shapes/wall");
             Healt = content.Load<Texture2D>("Shapes/Heart");
             Boost = content.Load<Texture2D>("Shapes/pflame");
@@ -85,6 +86,7 @@ namespace SpaceDestroyer.Controllers
             EnemyComet = content.Load<Texture2D>("Enemies/comet");
             EnemyStriker = content.Load<Texture2D>("Enemies/EnemyStriker");
             EnemyBomber = content.Load<Texture2D>("Enemies/Bomber");
+            EnemyDestroyer = content.Load<Texture2D>("Enemies/destroyer");
             EBomb = content.Load<Texture2D>("Weapons/Bomb");
 
 
@@ -119,6 +121,8 @@ namespace SpaceDestroyer.Controllers
         public Texture2D CrateHealth { get; set; }
         public Texture2D CargoCrateT { get; set; }
         public Texture2D SwirlTexture { get; set; }
+        public Texture2D EnemyDestroyer { get; set; }
+        public Texture2D EnemyRocket { get; set; }
 
         public Texture2D RocketTexture { get; set; }
 
@@ -505,6 +509,7 @@ namespace SpaceDestroyer.Controllers
                                      new Rectangle(playerWeapon.X, playerWeapon.Y,
                                                    ((Laser)playerWeapon).dest - playerWeapon.X, 2), Color.Red);
                 }
+               
             }
         }
 
@@ -741,6 +746,13 @@ namespace SpaceDestroyer.Controllers
                         SpriteEffects.None,
                         1.0f);
                 }
+                
+            }
+            if (enemy.Type == 7)
+            {
+                spriteBatch.Draw(EnemyDestroyer, new Rectangle(enemy.X, enemy.Y, enemy.Width, enemy.Height),
+                             Color.White);
+
             }
 
         }
@@ -791,7 +803,28 @@ namespace SpaceDestroyer.Controllers
                                          Color.White);
                     }
                 }
+                if (enemyWeaponse is ERocket)
+                {
 
+                    Vector2 realPos = new Vector2(enemyWeaponse.X + enemyWeaponse.RadiusX / 2,
+                                                  enemyWeaponse.Y + enemyWeaponse.RadiusY / 2);
+                    spriteBatch.Draw(
+                        EnemyRocket,
+                        realPos,
+                        null,
+                        Color.OrangeRed,
+                        ((ERocket)enemyWeaponse).Angle,
+                        new Vector2(
+                            enemyWeaponse.RadiusX / 2,
+                            enemyWeaponse.RadiusY / 2),
+                        0.3f,
+                        SpriteEffects.None,
+                        1.0f);
+                }
+                if (enemyWeaponse is ELaser)
+                {
+                    spriteBatch.Draw(dummyTexture, new Rectangle(enemyWeaponse.X, enemyWeaponse.Y, enemyWeaponse.RadiusX, enemyWeaponse.RadiusY), Color.Red);
+                }
             }
         }
 

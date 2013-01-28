@@ -196,6 +196,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Enemies\destroyer.png">
+      <Name>destroyer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Content Include="leveldata.xml">
       <Name>leveldata</Name>
       <Importer>XmlImporter</Importer>

@@ -121,7 +121,6 @@ namespace SpaceDestroyer.Controllers
         }
         #endregion
 
-
         #region Levels
         internal Boolean CheckAndUpdateLevel()
         {
@@ -193,7 +192,6 @@ namespace SpaceDestroyer.Controllers
         }
 
         #endregion
-
 
         #region enemyFire
         internal void CalculateEnemyFire()
@@ -273,11 +271,29 @@ namespace SpaceDestroyer.Controllers
                         i--;
                     }
                 }
+                var laser = EnemyBullets[i] as ELaser;
+                if (laser != null)
+                {
+                    if (laser.Fired)
+                    {
+                        EnemyBullets.RemoveAt(i);
+                        i--;
+                    }
+                }
             }
         }
         #endregion
 
-        #region collissions
+        #region collissions and explosions
+        internal void CalculateExplosions(float gameTime)
+        {
+            foreach (AnimatedExplosion t in Explosions)
+            {
+                t.UpdateFrame(gameTime);
+            }
+        }
+
+
         internal void CalculateColisions()
         {
             for (int i = 0; i < EnemyList.Count; i++)
@@ -620,14 +636,6 @@ namespace SpaceDestroyer.Controllers
         }
         #endregion
 
-        internal void CalculateExplosions(float gameTime)
-        {
-            foreach (AnimatedExplosion t in Explosions)
-            {
-                t.UpdateFrame(gameTime);
-            }
-        }
-
         #region bullets
         internal void RemoveBullets()
         {
@@ -661,7 +669,7 @@ namespace SpaceDestroyer.Controllers
                         pw.Y < e.Y + e.Height)
                     {
                         e.Healt = e.Healt - pw.Power;
-                        FloatingTexts.Add(new DamageText(e.X + e.Width / 2, e.Y, pw.Power * DamageMulti));
+                        FloatingTexts.Add(new DamageText(e.X + e.Width / 2, e.Y, pw.Power));
                         expl = true;
                         try
                         {
@@ -805,6 +813,7 @@ namespace SpaceDestroyer.Controllers
 
         #endregion
 
+        #region endgame
         internal bool CheckIfDied()
         {
             return (Player.Healt <= 0);
@@ -829,6 +838,14 @@ namespace SpaceDestroyer.Controllers
             HighScores.Add(high);
         }
 
+        internal void RegisterSpriteController(SpriteController spriteController)
+        {
+            this.spriteController = spriteController;
+        }
+
+        public SpriteController spriteController { get; set; }
+        #endregion
+
         #region background
         internal void CalculateBackgroundElements()
         {
@@ -841,12 +858,6 @@ namespace SpaceDestroyer.Controllers
             return _backGroundColor.GetBackgroundColor();
         }
         #endregion
-
-        internal void RegisterSpriteController(SpriteController spriteController)
-        {
-            this.spriteController = spriteController;
-        }
-
-        public SpriteController spriteController { get; set; }
+       
     }
 }

@@ -7,7 +7,9 @@
     Type 4 == Striker //Raske, krever litt å treffe
     Type 5 == Bomber //Bør ha mye helse
     Type 6 == SentryShip som prøver å ramme deg
-    Type 7 == Crate with Charge
+    Type 7 == Destroyer
+    
+    Crate with Charge
     Type 8 == Striker med skjold
     Type 9 == Frigat // har laser, og raketter
     
@@ -20,13 +22,22 @@
     -->
   <Level>
     <LevelNumber>1</LevelNumber>
-    <InfoText>
+    <!--<InfoText>
       <Info>Get through the meteorid field to get to the enemy supply zone.</Info>
       <Info2>Save your ammunition, but KILL stuff to advance</Info2>
-    </InfoText>
+    </InfoText>-->
 
     <Enemies>
       <EnemyData>
+        <Type>7</Type>
+        <Droprate>0</Droprate>
+        <Boss>false</Boss>
+        <Healt>2000</Healt>
+        <Score>3000</Score>
+        <Spawnrate>15000</Spawnrate>
+        <CrashDamage>5</CrashDamage>
+      </EnemyData>
+      <!--<EnemyData>
         <Type>1</Type>
         <Droprate>0</Droprate>
         <Boss>false</Boss>
@@ -34,7 +45,7 @@
         <Score>2</Score>
         <Spawnrate>1500</Spawnrate>
         <CrashDamage>5</CrashDamage>
-      </EnemyData>
+      </EnemyData>-->
     </Enemies>
   </Level> <!--1, 1-->
   <Level>
@@ -808,7 +819,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level> <!--36, 3-->
+  </Level> <!--36, 6-->
   <Level>
     <LevelNumber>37</LevelNumber>
     <Enemies>
@@ -831,7 +842,7 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level> <!--37, 3 4-->
+  </Level> <!--37, 4 6-->
   <Level>
     <LevelNumber>38</LevelNumber>
     <Enemies>
@@ -863,5 +874,5 @@
         <CrashDamage>5</CrashDamage>
       </EnemyData>
     </Enemies>
-  </Level> <!--38, 1 3 4-->
+  </Level> <!--38, 1 4 6-->
 </XnaContent>

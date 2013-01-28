@@ -17,7 +17,7 @@ namespace SpaceDestroyer.Player
 
         public PlayerOne()
         {
-            Healt = 75;
+            Healt = 200;
             Shield = 100;
             Booster = 100;
             Height = 60;

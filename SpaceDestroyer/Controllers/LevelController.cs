@@ -114,6 +114,10 @@ namespace SpaceDestroyer.Controllers
                         {
                             return new ChargingSentry(p.Health, p.Score, EnemyWeapons, p.Droprate, rand, p.CrashDamage, p.EnemyNumber);
                         }
+                        if (p.EnemyNumber == 7)
+                        {
+                            return new Destroyer(p.Health, p.Score, EnemyWeapons, p.Droprate, rand, p.CrashDamage, p.EnemyNumber);
+                        }
                     }
                 }
             }

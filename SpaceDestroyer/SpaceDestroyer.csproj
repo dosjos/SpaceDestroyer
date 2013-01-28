@@ -143,6 +143,7 @@
     <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\ChargingSentry.cs" />
     <Compile Include="Enemies\Comet.cs" />
+    <Compile Include="Enemies\Destroyer.cs" />
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\CargoCrate.cs" />
     <Compile Include="Enemies\SmallBoss.cs" />
@@ -180,7 +181,9 @@
     <Compile Include="Weapons\DirectionalBullet.cs" />
     <Compile Include="Weapons\EBomb.cs" />
     <Compile Include="Weapons\EBullet.cs" />
+    <Compile Include="Weapons\ELaser.cs" />
     <Compile Include="Weapons\EnemyWeapons.cs" />
+    <Compile Include="Weapons\ERocket.cs" />
     <Compile Include="Weapons\Laser.cs" />
     <Compile Include="Weapons\PlayerWeapon.cs" />
     <Compile Include="Player\PlayerOne.cs" />
